@@ -1,0 +1,51 @@
+.title1 {
+	font-size: 2rem;
+	font-weight: bolder;
+}
+
+.title2 {
+	font-size: 1.7rem;
+	font-weight: bolder;
+}
+
+.title3 {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.title4 {
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+
+.title5 {
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+
+.title6 {
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.title {
+	background-color: antiquewhite;
+	font-size: 2em;
+	text-align: center;
+}
+
+.topmenu {
+	background-color: wheat;
+	border: 2px solid wheat;
+	border-radius: 0.5em;
+	color: black;
+	font-size: 1.3em;
+	margin: 4px;
+	text-align: center;
+	width: 98%;
+}
+
+/*.list_title {
+	font-size: 1.1em;
+	font-weight: bold;
+} */
