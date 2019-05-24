@@ -89,7 +89,7 @@ let wb = {
 				}
 				break;
 				
-			case "peopleatoz"
+			case "peopleatoz":
 				let chars="";
 				$("#people_atoz_list").html("");
 				
