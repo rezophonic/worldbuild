@@ -134,7 +134,8 @@ let wb = {
 			case "peoplebyclass":
 				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
 				$("#class_list").html("");
-				if (e.class) {
+				world.filter(o=>o.supertype==="Character").forEach( function(e) {
+					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
 						else c=e.class[0];
 						if (!classes[c])
@@ -150,11 +151,13 @@ let wb = {
 						classes.other += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race) + " " + e.class;
 						classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
+				});
 					
-					Object.getOwnPropertyNames(classes).sort().forEach(function(e) {
+				Object.getOwnPropertyNames(classes).sort().forEach(function(e) {
 					classes[e] += wb.EXP_LIST_FOOTER;
 					$("#class_list").append(classes[e]);
 				});
+				
 				break;
 				
 			case "world":
