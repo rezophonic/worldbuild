@@ -90,13 +90,14 @@ let wb = {
 				break;
 				
 			case "peopleatoz"
-				chars="";
+				let chars="";
 				$("#people_atoz_list").html("");
 				
 				world.filter(o=>o.supertype==="Character").forEach(function(e) {
 					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
 					if (e.title) chars+= e.title + " ";
 					chars += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race);
+					let c=undefined;
 					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
 						else c=e.class[0];
@@ -117,6 +118,7 @@ let wb = {
 					races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
 					if (e.title) races[e.race] += e.title + " ";
 					races[e.race] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race);
+					let c=undefined;
 					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
 						else c=e.class[0];
@@ -135,6 +137,7 @@ let wb = {
 				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
 				$("#class_list").html("");
 				world.filter(o=>o.supertype==="Character").forEach( function(e) {
+					let c=undefined;
 					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
 						else c=e.class[0];
@@ -173,6 +176,7 @@ let wb = {
 				$("#nations_list").html(natList);
 				$("#a-z_list").html(azList);
 				break;
+				
 		}
 	},
 
@@ -180,7 +184,7 @@ let wb = {
 	
 	pushPage: function(p,a,cb) {
 		document.getElementById("nav").pushPage(p);
-		wb.activeID.push(s);
+		wb.activeID.push(a);
 		if (typeof(cb)==="function") cb();
 	},
 	
