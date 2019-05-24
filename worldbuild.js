@@ -203,9 +203,12 @@ document.addEventListener("init",function(event) {
 	wb.initPage(event.target.id);
 });
 
+/*
 document.addEventListener("prepush",function(event) {
 	wb.initPage(event.target.id);
-}
+});
+*/
+
 document.addEventListener("prepop",function(event) {
 	wb.activeID.pop();
 	wb.pageStack.pop();
