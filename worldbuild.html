@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	
+	<!--
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	-->
+	
+	<link rel="stylesheet" href="worldbuild.css">
+</head>
+<body>
+<ons-navigator id="nav" page="index.html"></ons-navigator>
+
+
+<ons-template id="index.html">
+	<ons-page id="index">
+		<div class="page__background">
+			<img src="https://i.imgur.com/rbntKUn.jpg">
+		</div>
+		<ons-row>
+			<ons-col class="title">
+				Lott
+			</ons-col>
+		</ons-row>
+		<ons-row style="text-align: center">
+			<ons-col tappable>
+				<ons-button class="topmenu" onclick="wb.pushPage('world.html','')">
+					The World
+				</ons-button>
+			</ons-col>
+			<ons-col>
+				<ons-button class="topmenu">
+					Factions
+				</ons-button>
+			</ons-col>
+			<ons-col>
+				<ons-button class="topmenu" onclick="wb.pushPage('people.html','')">
+					People
+				</ons-button>
+			</ons-col>
+			<ons-col>
+				<ons-button class="topmenu" onclick="wb.pushPage('history.html','')">
+					History
+				</ons-button>
+			</ons-col>
+		</ons-row>
+	</ons-page>
+</ons-template>
+
+<ons-template id="world.html">
+	<ons-page id="world">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center">
+				The World
+			</div>
+		</ons-toolbar>
+		<ons-list>
+			<ons-list-item expandable><span class="title3">Nations</span>
+				<div class="expandable-content">
+					<ons-list id="nations_list">
+
+					</ons-list>
+				</div>
+			</ons-list-item>
+			<ons-list-item expandable class="list_title"><span class="title3">A-Z</span>
+				<div class="expandable-content">
+					<ons-list id="a-z_list">
+					
+					</ons-list>
+				</div>
+			</ons-list-item>
+		</ons-list>
+	</ons-page>
+</ons-template>
+
+<ons-template id="nation.html">
+	<ons-page id="nation">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="nation_title"> </div>
+		</ons-toolbar>
+		<div id="nation_info">
+			<ons-list id="city_list"></ons-list>
+			<ons-list id="reg_list"></ons-list>
+			<ons-list id="poi_list"></ons-list>
+		</div>
+	</ons-page>
+</ons-template>
+
+<ons-template id="location.html">
+	<ons-page id="location">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="loc_title"> </div>
+		</ons-toolbar>
+		<div id="loc_info">
+		</div>
+	</ons-page>
+</ons-template>
+	
+<ons-template id="history.html">
+	<ons-page id="history">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center">History</div>
+		</ons-toolbar>
+		<ons-list id="hist_list">
+		</ons-list>
+	</ons-page>
+</ons-template>
+	
+<ons-template id="event.html">
+	<ons-page id="event">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="event_title"> </div>
+		</ons-toolbar>
+		<div id="event_info">
+		</div>
+	</ons-page>
+</ons-template>
+
+<ons-template id="people.html">
+	<ons-page id="people">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="people_title"> People </div>
+		</ons-toolbar>
+		<ons-list>
+			<ons-list-item tappable onclick="pushpage('peoplebyrace','')">
+				<div class="center">
+					By Race
+				</div>
+				<div class="right">
+					<ons-icon icon="chevron-right"> </ons-icon>
+				</div>
+			</ons-list-item>
+			<ons-list-item tappable onclick="pushpage('peoplebyclass','')">
+				<div class="center">
+					By Class
+				</div>
+				<div class="right">
+					<ons-icon icon="chevron-right"> </ons-icon>
+				</div>
+			</ons-list-item>
+			<ons-list-item tappable onclick="pushpage('peopleatoz','')">
+				<div class="center">
+					A to Z
+				</div>
+				<div class="right">
+					<ons-icon icon="chevron-right"> </ons-icon>
+				</div>
+			</ons-list-item>
+		</ons-list>
+	</ons-page>
+</ons-template>
+
+<ons-template id="peoplebyrace.html">
+	<ons-page id="peoplebyrace">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="races_title"> Races </div>
+		</ons-toolbar>
+		<ons-list id="race_list">
+		</ons-list>
+	</ons-page>
+</ons-template>
+
+
+<ons-template id="peoplebyclass.html">
+	<ons-page id="peoplebyrclass">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="classes_title"> Classes </div>
+		</ons-toolbar>
+		<ons-list id-"class_list">
+		</ons-list>
+	</ons-page>
+</ons-template>
+
+
+<ons-template id="peopleatoz.html">
+	<ons-page id="peopleatoz">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="people_atoz_title"> People </div>
+		</ons-toolbar>
+		<ons-list id="people_atoz_list">
+		</ons-list>
+	</ons-page>
+</ons-template>
+
+<ons-template id="character.html">
+	<ons-page id="character">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center" id="character_title"> </div>
+		</ons-toolbar>
+	</ons-page>
+</ons-template>
+
+<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<!--
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+-->
+
+<script src="worldbuilddata.js"></script>
+<script src="worldbuild.js"></script>
+
+</body>

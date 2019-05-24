@@ -3,14 +3,14 @@ let wb = {
 	EXP_LIST_FOOTER: "</div> </ons-list-item>",
 	EXP_LIST_MID: "</div> <div class='expandable-content'>",
 	EXP_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>",
-	HIST_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"event.html\",wb.setActiveID(\"",
-	LOC_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"location.html\",wb.setActiveID(\"",
+	HIST_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"event.html\",\"",
+	LOC_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"location.html\",\"",
 	LIST_ITEM_MID: "</div> <div class='list-item__subtitle'>",
 	//LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
-	NAT_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"nation.html\",wb.setActiveID(\"",
+	NAT_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"nation.html\",\"",
 	CLICKABLE_LIST_ITEM_MID: "\"))'> <div class='center'> <div class='list-item__title title4'>",
 	CLICKABLE_LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
-	PEOPLE_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"character.html\",wb.setActiveID(\"",
+	PEOPLE_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"character.html\",\"",
 	POI_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Other Places of Interest</div> <div class='expandable-content'>",
 	REG_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Regions</div> <div class='expandable-content'>",
 	
@@ -89,10 +89,28 @@ let wb = {
 				}
 				break;
 				
-			case "people":
-				let races={}, classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
+			case "peopleatoz"
+				chars="";
+				$("#people_atoz_list").html("");
+				
+				world.filter(o=>o.supertype==="Character").forEach(function(e) {
+					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+					if (e.title) chars+= e.title + " ";
+					chars += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race);
+					if (e.class) {
+						if (typeof(e.class)==="string") c=e.class;
+						else c=e.class[0];
+						chars += c;
+					}
+					chars += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+				});
+				$("people_atoz_list").html(chars);
+				break;
+				
+			case "peoplebyrace":
+				let races={}; 
 				$("#race_list").html("");
-				$("#class_list").html("");
+				
 				world.filter(o=>o.supertype==="Character").forEach( function(e) {
 					if (!races[e.race])
 						races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
@@ -103,6 +121,22 @@ let wb = {
 						if (typeof(e.class)==="string") c=e.class;
 						else c=e.class[0];
 						races[e.race] += " " + c;
+					}
+					races[e.race] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+				});
+				Object.getOwnPropertyNames(races).sort().forEach(function(e) {
+					races[e] += wb.EXP_LIST_FOOTER;
+					$("#race_list").append(races[e]);
+				});
+				
+				break;
+				
+			case "peoplebyclass":
+				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
+				$("#class_list").html("");
+				if (e.class) {
+						if (typeof(e.class)==="string") c=e.class;
+						else c=e.class[0];
 						if (!classes[c])
 							classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
 						classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
@@ -116,20 +150,13 @@ let wb = {
 						classes.other += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race) + " " + e.class;
 						classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
-					races[e.race] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-				});
-				Object.getOwnPropertyNames(races).sort().forEach(function(e) {
-					races[e] += wb.EXP_LIST_FOOTER;
-					$("#race_list").append(races[e]);
-				});
-				Object.getOwnPropertyNames(classes).sort().forEach(function(e) {
+					
+					Object.getOwnPropertyNames(classes).sort().forEach(function(e) {
 					classes[e] += wb.EXP_LIST_FOOTER;
 					$("#class_list").append(classes[e]);
 				});
-				
-
 				break;
-
+				
 			case "world":
 				let natList="", azList="";
 				world.forEach(function(e){
@@ -148,9 +175,10 @@ let wb = {
 
 	nestableString: s=>s.replace("'","&#39;"),
 	
-	pushPage: function(p,cb,d) {
+	pushPage: function(p,a,cb) {
 		document.getElementById("nav").pushPage(p);
-		if (typeof(cb)==="function") cb(d);
+		wb.activeID.push(s);
+		if (typeof(cb)==="function") cb();
 	},
 	
 	setActiveID: function(s) {wb.activeID.push(s);},
