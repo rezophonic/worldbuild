@@ -415,7 +415,7 @@ let world = [
 	"class": "fighter",
 	"faction": "Dohn Durigg Stratocracy",
 	"homeland": "Dohn Durigg",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"supertype": "Character",
@@ -436,7 +436,7 @@ let world = [
 },
 {
 	"name": "Addrik Frostbeard",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "fighter",
@@ -448,7 +448,7 @@ let world = [
 {
 	"name": "Agni Faskol", 
 	"title": "Quartermaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "npc",
@@ -586,7 +586,7 @@ let world = [
 {
 	"name": "Bergi Skybreaker",
 	"title": "Master",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "spellbreaker monk",
@@ -644,7 +644,7 @@ let world = [
 },
 {
 	"name": "Bruun the Outlaw",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "fighter",
@@ -718,7 +718,7 @@ let world = [
 {
 	"name": "Dain Ymbeard",
 	"title": "Forgemaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "npc",
@@ -740,7 +740,7 @@ let world = [
 {
 	"name": "Eira Hyde",
 	"title": "Quartermaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "npc",
@@ -750,7 +750,7 @@ let world = [
 },
 {
 	"name": "Eldrid Ulstagson",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "rogue",
@@ -882,7 +882,7 @@ let world = [
 {
 	"name": "Gruun the Braggart",
 	"title": "Kynesgard",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "fighter",
@@ -893,7 +893,7 @@ let world = [
 {
 	"name": "Gudrun Elg",
 	"title": "Quartermaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "npc",
@@ -903,7 +903,7 @@ let world = [
 },
 {
 	"name": "Gudrun Grey-One",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"homeland": "Dohn Durigg",
@@ -929,7 +929,7 @@ let world = [
 },
 {
 	"name": "Helga Arnhoth",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "rogue",
@@ -1133,7 +1133,7 @@ let world = [
 },
 {
 	"name": "Mist Oaken-Crook",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "cleric",
@@ -1203,7 +1203,7 @@ let world = [
 },
 {
 	"name": "Ori Stonespeaker",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "fighter",
@@ -1230,7 +1230,7 @@ let world = [
 {
 	"name": "Ovina Irontongue",
 	"title": "Forgemaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "npc",
@@ -1348,7 +1348,7 @@ let world = [
 {
 	"name": "Rustag Blatusk",
 	"title": "Quartermaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "npc",
@@ -1358,7 +1358,7 @@ let world = [
 },
 {
 	"name": "Rustag Brunson",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "ranger",
@@ -1389,7 +1389,7 @@ let world = [
 {
 	"name": "Sigrun Brekstan",
 	"title": "Rune-Speaker",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "female",
 	"class": "cleric",
@@ -1554,7 +1554,7 @@ let world = [
 {
 	"name": "Thruun Frostbeard",
 	"title": "Warmaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "battle master",
@@ -1565,7 +1565,7 @@ let world = [
 {
 	"name": "Thryne Gullhyrn",
 	"title": "King",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "fighter",
@@ -1629,7 +1629,7 @@ let world = [
 },
 {
 	"name": "Uthgar Felfoot",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "fighter",
@@ -1640,7 +1640,7 @@ let world = [
 {
 	"name": "Uthrin Middag",
 	"title": "Forgemaster",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male",
 	"class": "npc",
@@ -1677,7 +1677,7 @@ let world = [
 },
 {
 	"name": "Vilgulf Skybreaker",
-	"race": "dawrf",
+	"race": "dwarf",
 "subrace": "mountain dwarf",
 	"sex": "male spellbreaker",
 	"class": "monk",

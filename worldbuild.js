@@ -8,7 +8,7 @@ let wb = {
 	LIST_ITEM_MID: "</div> <div class='list-item__subtitle'>",
 	//LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
 	NAT_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"nation.html\",\"",
-	CLICKABLE_LIST_ITEM_MID: "\"))'> <div class='center'> <div class='list-item__title title4'>",
+	CLICKABLE_LIST_ITEM_MID: "\")'> <div class='center'> <div class='list-item__title title4'>",
 	CLICKABLE_LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
 	PEOPLE_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"character.html\",\"",
 	POI_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Other Places of Interest</div> <div class='expandable-content'>",
@@ -96,7 +96,7 @@ let wb = {
 				world.filter(o=>o.supertype==="Character").forEach(function(e) {
 					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
 					if (e.title) chars+= e.title + " ";
-					chars += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race);
+					chars += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.subrace);
 					let c=undefined;
 					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
@@ -117,7 +117,7 @@ let wb = {
 						races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
 					races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
 					if (e.title) races[e.race] += e.title + " ";
-					races[e.race] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race);
+					races[e.race] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.subrace);
 					let c=undefined;
 					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
@@ -145,7 +145,7 @@ let wb = {
 							classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
 						classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
 						if (e.title) classes[c] += e.title + " ";
-						classes[c] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race) + " " + c;
+						classes[c] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.subrace) + " " + c;
 						classes[c] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
 					else {
@@ -203,6 +203,9 @@ document.addEventListener("init",function(event) {
 	wb.initPage(event.target.id);
 });
 
+document.addEventListener("prepush",function(event) {
+	wb.initPage(event.target.id);
+}
 document.addEventListener("prepop",function(event) {
 	wb.activeID.pop();
 	wb.pageStack.pop();
