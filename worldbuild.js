@@ -47,7 +47,7 @@ let wb = {
 			case "history":
 				histList="";
 				wb.sortByDate(world.filter(o=>o.supertype==="Event")).forEach(function(e) {
-					histList+=wb.HIST_LIST_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.year + " " + e.era + wb.LIST_ITEM_MID + e.name + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						histList+=wb.HIST_LIST_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.year + " " + e.era + wb.LIST_ITEM_MID + e.name + wb.CLICKABLE_LIST_ITEM_FOOTER;
 				});
 				$("#hist_list").html(histList);
 				break;
@@ -71,13 +71,15 @@ let wb = {
 				else {
 					let cityList = "", regList = "", poiList = "";
 					world.forEach(function(e) {
-						if (typeof(wb.getParentNation(e))!=="undefined" && wb.getParentNation(e).name===wb.activeID[wb.activeID.length-1]) {
-							if (e.type==="City")
-								cityList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-							else if (e.type==="Region")
-								regList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-							else if (e.type==="PoI")
-								poiList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						if (e.supertype==="Location") {
+							if (typeof(wb.getParentNation(e))!=="undefined" && wb.getParentNation(e).name===wb.activeID[wb.activeID.length-1]) {
+								if (e.type==="City")
+									cityList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+								else if (e.type==="Region")
+									regList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+								else if (e.type==="PoI")
+									poiList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							}
 						}
 					});
 					if (cityList!=="") cityList=wb.CITY_LIST_HEADER + cityList + wb.EXP_LIST_FOOTER;
@@ -90,41 +92,47 @@ let wb = {
 				break;
 				
 			case "peopleatoz":
-				let chars="";
 				$("#people_atoz_list").html("");
 				
-				world.filter(o=>o.supertype==="Character").forEach(function(e) {
-					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-					if (e.title) chars+= e.title + " ";
-					chars += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.subrace);
-					let c=undefined;
-					if (e.class) {
-						if (typeof(e.class)==="string") c=e.class;
-						else c=e.class[0];
-						chars += c;
+				world.forEach(function(e) {
+					if (e.supertype==="Character") {
+						let chars="";
+						chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+						if (e.title) chars+= e.title + " ";
+						chars += e.name + wb.LIST_ITEM_MID;
+						chars+= e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
+						let c=undefined;
+						if (e.class) {
+							if (typeof(e.class)==="string") c=e.class;
+							else c=e.class[0];
+							chars += " " + c;
+						}
+						chars += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						$("#people_atoz_list").append(chars)
 					}
-					chars += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 				});
-				$("people_atoz_list").html(chars);
 				break;
 				
 			case "peoplebyrace":
 				let races={}; 
 				$("#race_list").html("");
 				
-				world.filter(o=>o.supertype==="Character").forEach( function(e) {
-					if (!races[e.race])
-						races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
-					races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-					if (e.title) races[e.race] += e.title + " ";
-					races[e.race] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.subrace);
-					let c=undefined;
-					if (e.class) {
-						if (typeof(e.class)==="string") c=e.class;
-						else c=e.class[0];
-						races[e.race] += " " + c;
+				world.forEach(function(e) {
+					if (e.supertype==="Character") {
+						if (!races[e.race])
+							races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
+						races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+						if (e.title) races[e.race] += e.title + " ";
+						races[e.race] += e.name + wb.LIST_ITEM_MID;
+						races[e.race] += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
+						let c=undefined;
+						if (e.class) {
+							if (typeof(e.class)==="string") c=e.class;
+							else c=e.class[0];
+							races[e.race] += " " + c;
+						}
+						races[e.race] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
-					races[e.race] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 				});
 				Object.getOwnPropertyNames(races).sort().forEach(function(e) {
 					races[e] += wb.EXP_LIST_FOOTER;
@@ -136,23 +144,27 @@ let wb = {
 			case "peoplebyclass":
 				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
 				$("#class_list").html("");
-				world.filter(o=>o.supertype==="Character").forEach( function(e) {
-					let c=undefined;
-					if (e.class) {
-						if (typeof(e.class)==="string") c=e.class;
-						else c=e.class[0];
-						if (!classes[c])
-							classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
-						classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-						if (e.title) classes[c] += e.title + " ";
-						classes[c] += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.subrace) + " " + c;
-						classes[c] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-					}
-					else {
-						classes.other +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-						if (e.title) classes.other += e.title + " ";
-						classes.other += e.name + wb.LIST_ITEM_MID + wb.capitalizeFirst(e.race) + " " + e.class;
-						classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+				world.forEach(function(e) {
+					if (e.supertype==="Character") {
+						let c=undefined;
+						if (e.class) {
+							if (typeof(e.class)==="string") c=e.class;
+							else c=e.class[0];
+							if (!classes[c])
+								classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
+							classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+							if (e.title) classes[c] += e.title + " ";
+							classes[c] += e.name + wb.LIST_ITEM_MID;
+							classes[c] += e.subrace ? wb.capitalizeFirst(e.subrace) + " " + c : wb.capitalizeFirst(e.race) + " " + c;
+							classes[c] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						}
+						else {
+							classes.other +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+							if (e.title) classes.other += e.title + " ";
+							classes.other += e.name + wb.LIST_ITEM_MID;
+							classes.other += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
+							classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						}
 					}
 				});
 					
@@ -162,16 +174,22 @@ let wb = {
 				});
 				
 				break;
+			
+			case "residents":
 				
+			
 			case "world":
 				let natList="", azList="";
 				world.forEach(function(e){
-					if(e.type==="Nation" && (typeof(e.subtype)==="undefined" || !e.subtype.includes("Historical"))){
-						natList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						azList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+					if (e.supertype==="Location")
+					{
+						if(e.type==="Nation" && (typeof(e.subtype)==="undefined" || !e.subtype.includes("Historical"))){
+							natList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							azList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						}
+						else
+							azList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
-					else
-						azList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 				});
 				$("#nations_list").html(natList);
 				$("#a-z_list").html(azList);

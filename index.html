@@ -69,7 +69,7 @@
 					</ons-list>
 				</div>
 			</ons-list-item>
-			<ons-list-item expandable class="list_title"><span class="title3">A-Z</span>
+			<ons-list-item expandable class="list_title"><span class="title3">Alphabetical</span>
 				<div class="expandable-content">
 					<ons-list id="a-z_list">
 					
@@ -92,6 +92,13 @@
 			<ons-list id="city_list"></ons-list>
 			<ons-list id="reg_list"></ons-list>
 			<ons-list id="poi_list"></ons-list>
+			<ons-list>
+				<ons-list-item tappable onclick="wb.pushPage('residents.html',wb.activeID[wb.activeID.length])">
+					<div class="center title4">
+						Noteworthy Residents
+					</div>
+				</ons-list-item>
+			</ons-list>
 		</div>
 	</ons-page>
 </ons-template>
@@ -106,6 +113,17 @@
 		</ons-toolbar>
 		<div id="loc_info">
 		</div>
+	</ons-page>
+</ons-template>
+
+<ons-template id="residents.html">
+	<ons-page id="residents">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
+			</div>
+			<div class="center">Noteworthy Residents</div>
+		</ons-toolbar>
 	</ons-page>
 </ons-template>
 	
@@ -145,7 +163,7 @@
 		</ons-toolbar>
 		<ons-list>
 			<ons-list-item tappable onclick="wb.pushPage('peoplebyrace.html','')">
-				<div class="center">
+				<div class="center title3">
 					By Race
 				</div>
 				<div class="right">
@@ -153,7 +171,7 @@
 				</div>
 			</ons-list-item>
 			<ons-list-item tappable onclick="wb.pushPage('peoplebyclass.html','')">
-				<div class="center">
+				<div class="center title3">
 					By Class
 				</div>
 				<div class="right">
@@ -161,8 +179,8 @@
 				</div>
 			</ons-list-item>
 			<ons-list-item tappable onclick="wb.pushPage('peopleatoz.html','')">
-				<div class="center">
-					A to Z
+				<div class="center title3">
+					Alphabetical
 				</div>
 				<div class="right">
 					<ons-icon icon="chevron-right"> </ons-icon>
@@ -194,7 +212,7 @@
 			</div>
 			<div class="center" id="classes_title"> Classes </div>
 		</ons-toolbar>
-		<ons-list id-"class_list">
+		<ons-list id="class_list">
 		</ons-list>
 	</ons-page>
 </ons-template>
