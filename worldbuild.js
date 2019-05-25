@@ -14,34 +14,116 @@ let wb = {
 	POI_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Other Places of Interest</div> <div class='expandable-content'>",
 	REG_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Regions</div> <div class='expandable-content'>",
 	
+	UNCAPITALIZED_WORDS: ["a","an","and","aboard","about","above","across","after","against","along","amid","among","amongst","around","at","atop","before","behind","below","beneath","beside","besides","between","before","beyond","but","by","circa","despite","down","during","except","for","from","in","inside","into","less","like","near","of","off","on","onto","or","out","over","since","than","the","through","throughout","till","to","toward","towards","under","underneath","until","unto","up","upon","vs.","via","with","within","without"],
+	
+	PRIMALS: ["celestial", "demon", "devil", "dragon", "elder elemental"],
+	
 	pageStack: [],
 	activeID: [],
 	
 	capitalize: function(str) {
 		let out="";
 		str=str.split(" ");
-		str.forEach(function(e) {
-			out+=e[0].toUpperCase()+e.substring(1)+" ";
+		str.forEach(function(e, i) {
+			if (i === 0 || !wb.UNCAPITALIZED_WORDS.includes(e))
+				out+=e[0].toUpperCase()+e.substring(1)+" ";
+			else
+				out+=e+" ";
 		});
 		return out.substring(0,out.length-1);
 	},
 	
 	capitalizeFirst: str => str[0].toUpperCase()+str.substr(1),
 	
-	getData: (name)=>world.find(o=>o.name===name),
+	generateListItem (item) {
+		let strOut="";
+		switch(item.supertype) {
+			case "Character":
+				// if (type === "clickable") {
+				strOut=wb.PEOPLE_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID;
+				if (item.title) strOut+= item.title + " ";
+				strOut += item.name + wb.LIST_ITEM_MID;
+				strOut+= item.subrace ? wb.capitalizeFirst(item.subrace) : wb.capitalizeFirst(item.race);
+				let c=undefined;
+				if (item.class) {
+					if (typeof(item.class)==="string") c=item.class;
+					else c=item.class[0];
+					strOut += " " + c;
+				}
+				strOut += ", " + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+				// }
+				break;
+			
+			case "Location":
+				break;
+		}
+		return strOut;
+	},
+
 	
-	getParentNation: (place)=>typeof(place)==="undefined"?undefined:(place.type==="Nation"?place:wb.getParentNation(wb.getData(place.parent))),
+	getData: (name) => world.find(o => o.name===name),
+	
+	getParentNation: (place) => typeof(place)==="undefined"?undefined:(place.type==="Nation"?place:wb.getParentNation(wb.getData(place.parent))),
+	
+	getRank: function(character,factions) {
+		let rank=255;
+		faction=factions.find(o => o.faction === character.faction);
+		if (faction) {
+			if (wb.PRIMALS.includes(character.race)) rank=0;
+			else if(character.title && faction.hierarchy[character.title]) rank=faction.hierarchy[character.title];
+		}
+		return rank;
+	},
 	
 	initPage(page,callBack) {
 		wb.pageStack.push(page);
+		a=wb.activeID[wb.activeID.length-1];
 		switch (page) {
 			case "event":
-				$("#event_title").text(wb.activeID[wb.activeID.length-1]);
-				ev = wb.getData(wb.activeID[wb.activeID.length-1]);
+				$("#event_title").text(a);
+				ev = wb.getData(a);
 				if (typeof(ev.text)==="string")
 					$("#event_info").html("<p>" + ev.text + "</p>");
 				else
 					$("#event_info").text(ev.summary);
+				break;
+			
+			case "hierarchy":
+				if (wb.getData(a).supertype==="Location") {
+					$("#hierarchy_title").text("Noteworthy Residents of " + a); // Alphabetical / By Faction
+					$("#hierarchy_list").html("");
+					let factions=world.filter(o => o.supertype === "Hierarchy" && o.parent === a);
+					let chars=world.filter(o => o.supertype === "Character" && o.homeland === a);
+					chars.sort( (a,b) => wb.getRank(a,factions) - wb.getRank(b,factions) );
+					factionHtml = {};
+					chars.forEach( function(e) {
+						if (e.tags && e.tags.includes("Historical")) {
+							if(!factionHtml.Historical)
+								factionHtml.Historical = wb.EXP_LIST_HEADER + "Historical" + wb.EXP_LIST_MID;
+							factionHtml.Historical += wb.generateListItem(e);
+						}
+						else if (factions.find(o=> o.faction === e.faction)) {
+							if(!factionHtml[e.faction])
+								factionHtml[e.faction] = wb.EXP_LIST_HEADER + wb.capitalize(e.faction) + wb.EXP_LIST_MID;
+							factionHtml[e.faction] += wb.generateListItem(e);
+						}
+						else {
+							if(!factionHtml.other)
+								factionHtml.other=wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID;
+							factionHtml.other += wb.generateListItem(e);
+						}
+					});
+					Object.getOwnPropertyNames(factionHtml).sort().forEach(function(e) {
+						factionHtml[e] += wb.EXP_LIST_FOOTER;
+						if( e !== "other"  && e !== "Historical" )
+							$("#hierarchy_list").append(factionHtml[e]);
+					});
+					$("#hierarchy_list").append(factionHtml.other);
+					$("#hierarchy_list").append(factionHtml.Historical);
+				}
+				else if (wb.getData(wb.activeID[wb.activeID.length=1]).supertype==="Faction")
+					$("#hieararchy_title").text("Noteworthy Members of " + a);
+				else $("#hierarchy_title").text("Error: \"" + wb.activeID + "\" is neither a faction nor a location.");
 				break;
 			
 			case "history":
@@ -53,26 +135,26 @@ let wb = {
 				break;
 			
 			case "location":
-				$("#loc_title").text(wb.activeID[wb.activeID.length-1]);
-				loc = wb.getData(wb.activeID[wb.activeID.length-1]);
+				$("#loc_title").text(a);
+				loc = wb.getData(a);
 				if (typeof(loc.text)==="string")
 					$("#loc_info").html("<p>" + loc.text + "</p>");
 				else
 					$("#loc_info").text(loc.summary);
-				wb.sortByDate(world.filter(o=>o.supertype==="Event" && (o.parent===wb.activeID[wb.activeID.length-1] || o.parent.includes(wb.activeID[wb.activeID.length-1])))).forEach(function(e){$("#loc_info").append("<p>" + e.text + "</p>")});
+				wb.sortByDate(world.filter(o=>o.supertype==="Event" && (o.parent===a || o.parent.includes(a)))).forEach(function(e){$("#loc_info").append("<p>" + e.text + "</p>")});
 				break;
 			
 			case "nation":
-				$("#nation_title").text(wb.activeID[wb.activeID.length-1]);
-				nation = wb.getData(wb.activeID[wb.activeID.length-1]);
+				$("#nation_title").text(a);
+				nation = wb.getData(a);
 				let nationInfo=$("#nation_info");
 				if(typeof(nation)==="undefined")
-					nationInfo.text("Sorry, but " + wb.activeID[wb.activeID.length-1] + " could not be found.");
+					nationInfo.text("Sorry, but " + a + " could not be found.");
 				else {
 					let cityList = "", regList = "", poiList = "";
 					world.forEach(function(e) {
 						if (e.supertype==="Location") {
-							if (typeof(wb.getParentNation(e))!=="undefined" && wb.getParentNation(e).name===wb.activeID[wb.activeID.length-1]) {
+							if (typeof(wb.getParentNation(e))!=="undefined" && wb.getParentNation(e).name===a) {
 								if (e.type==="City")
 									cityList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 								else if (e.type==="Region")
@@ -175,9 +257,6 @@ let wb = {
 				
 				break;
 			
-			case "residents":
-				
-			
 			case "world":
 				let natList="", azList="";
 				world.forEach(function(e){
@@ -201,8 +280,9 @@ let wb = {
 	nestableString: s=>s.replace("'","&#39;"),
 	
 	pushPage: function(p,a,cb) {
+		if(a) wb.activeID.push(a);
+		else wb.activeID.push("");
 		document.getElementById("nav").pushPage(p);
-		wb.activeID.push(a);
 		if (typeof(cb)==="function") cb();
 	},
 	
