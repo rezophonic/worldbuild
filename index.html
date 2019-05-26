@@ -23,6 +23,7 @@
 			</div>
 			<div class="center" id="character_title"> </div>
 		</ons-toolbar>
+		<ons-list id="character_info"> </ons-list>
 	</ons-page>
 </ons-template>
 
@@ -47,7 +48,21 @@
 			</div>
 			<div class="center" id="faction_title"> </div>
 		</ons-toolbar>
-		Coming soon: Faction pages!
+		<ons-list>
+			<ons-list-item id="fac_info"> </ons-list-item>
+			<ons-list-item expandable>
+				<span class="title4"> Hierarchy </span>
+				<div class="expandable-content">
+					<ons-list id="fac_hierarchy"> </ons-list>
+				</div>
+			</ons-list-item>
+			<ons-list-item expandable>
+				<span class="title4"> Members </span>
+				<div class="expandable-content">
+					<ons-list id="fac_members"> </ons-list>
+				</div>				
+			</ons-list-item>
+		</ons-list>
 	</ons-page>
 </ons-template>
 
@@ -61,7 +76,8 @@
 		</ons-toolbar>
 		<ons-list id="faction_list"> </ons-list>
 		<ons-list>
-			<ons-list-item expandable class="title4">Historical
+			<ons-list-item expandable>
+				<span class="title4"> Historical </span>
 				<div class="expandable-content">
 					<ons-list id="hist_fac_list"> </ons-list>
 				</div>

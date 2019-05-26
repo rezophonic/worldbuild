@@ -5,9 +5,11 @@ let wb = {
 	EXP_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>",
 	FAC_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"faction.html\",\"",
 	HIST_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"event.html\",\"",
-	LOC_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"location.html\",\"",
+	LIST_ITEM_HEADER: "<ons-list-item> <div class='center'> <div class='list-item__title title5'>",
 	LIST_ITEM_MID: "</div> <div class='list-item__subtitle'>",
+	LIST_ITEM_FOOTER: "</div> </div> </ons-list-item>",
 	//LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
+	LOC_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"location.html\",\"",
 	NAT_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"nation.html\",\"",
 	CLICKABLE_LIST_ITEM_MID: "\")'> <div class='center'> <div class='list-item__title title4'>",
 	CLICKABLE_LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
@@ -77,10 +79,13 @@ let wb = {
 	
 	getRank: function(character,factions) {
 		let rank=255;
-		faction=factions.find(o => o.name === character.faction);
+		if (Array.isArray(factions))
+			faction=factions.find(o => o.name === character.faction);
+		else
+			faction=factions;
 		if (faction) {
 			if (wb.PRIMALS.includes(character.race)) rank=0;
-			else if(character.title && faction.hierarchy[character.title]) rank=faction.hierarchy[character.title];
+			else if(character.title && faction.hierarchy[character.title]) rank=faction.hierarchy[character.title].rank;
 		}
 		return rank;
 	},
@@ -97,6 +102,22 @@ let wb = {
 		wb.pageStack.push(page);
 		a=wb.activeID[wb.activeID.length-1];
 		switch (page) {
+			case "character":
+				let character=wb.getData(a,"characters");
+				let charInfoStr="<ons-list-item>" + character.summary + "</ons-list-item>";
+				$("#character_title").text(a);
+				Object.getOwnPropertyNames(character).forEach(function(e) {
+					if(e!=="name" && e!=="summary" && e!=="tags")
+					{
+						if (Array.isArray(character[e]))
+							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e][0]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
+						else
+							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
+					}
+				});
+				$("#character_info").html(charInfoStr);
+				break;
+				
 			case "event":
 				$("#event_title").text(a);
 				ev = wb.getData(a,"events");
@@ -105,6 +126,19 @@ let wb = {
 				else
 					$("#event_info").text(ev.summary);
 				break;
+			case "faction":
+				let facHrchyList="", facMemberList="";
+				let faction=wb.getData(a,"factions");
+				$("#faction_title").text(a);
+				$("#fac_info").text(faction.summary);
+				Object.getOwnPropertyNames(faction.hierarchy).forEach( function(e) {
+					facHrchyList+=wb.LIST_ITEM_HEADER + e + wb.LIST_ITEM_MID + faction.hierarchy[e].summary + wb.LIST_ITEM_FOOTER;
+				});
+				world.characters.filter(o => o.faction===faction.name).sort((a,b) => wb.getRank(a,faction)-wb.getRank(b,faction)).forEach( function(c) {
+					facMemberList += wb.generateListItem(c);
+				});
+				$("#fac_hierarchy").html(facHrchyList);
+				$("#fac_members").html(facMemberList);
 			
 			case "factions":
 				let facList = "", histFacList="";
