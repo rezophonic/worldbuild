@@ -3,6 +3,7 @@ let wb = {
 	EXP_LIST_FOOTER: "</div> </ons-list-item>",
 	EXP_LIST_MID: "</div> <div class='expandable-content'>",
 	EXP_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>",
+	FAC_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"faction.html\",\"",
 	HIST_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"event.html\",\"",
 	LOC_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"location.html\",\"",
 	LIST_ITEM_MID: "</div> <div class='list-item__subtitle'>",
@@ -37,42 +38,59 @@ let wb = {
 	
 	generateListItem (item) {
 		let strOut="";
-		switch(item.supertype) {
-			case "Character":
-				// if (type === "clickable") {
-				strOut=wb.PEOPLE_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID;
-				if (item.title) strOut+= item.title + " ";
-				strOut += item.name + wb.LIST_ITEM_MID;
-				strOut+= item.subrace ? wb.capitalizeFirst(item.subrace) : wb.capitalizeFirst(item.race);
-				let c=undefined;
-				if (item.class) {
-					if (typeof(item.class)==="string") c=item.class;
-					else c=item.class[0];
-					strOut += " " + c;
-				}
-				strOut += ", " + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-				// }
-				break;
-			
-			case "Location":
-				break;
+		if (world.characters.includes(item)) {
+			// if (type === "clickable") {
+			strOut=wb.PEOPLE_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID;
+			if (item.title) strOut+= item.title + " ";
+			strOut += item.name + wb.LIST_ITEM_MID;
+			strOut+= item.subrace ? wb.capitalizeFirst(item.subrace) : wb.capitalizeFirst(item.race);
+			let c=undefined;
+			if (item.class) {
+				if (typeof(item.class)==="string") c=item.class;
+				else c=item.class[0];
+				strOut += " " + c;
+			}
+			strOut += ", " + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+			// }
+		}
+		else if (world.factions.includes(item)) {
+			strOut=wb.FAC_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID + item.name + wb.LIST_ITEM_MID + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 		}
 		return strOut;
 	},
 
 	
-	getData: (name) => world.find(o => o.name===name),
+	getData: function(name,type) {
+		let out = undefined;
+		if(typeof(type)==="string") {
+			out = world[type].find(o => o.name===name);
+		} else {
+			Object.getOwnPropertyNames(world).forEach(function(e) {
+				test = world[e].find(o => o.name===name);
+				if(test) out=test;
+			});
+		}
+	return out;
+	},
 	
-	getParentNation: (place) => typeof(place)==="undefined"?undefined:(place.type==="Nation"?place:wb.getParentNation(wb.getData(place.parent))),
+	getParentNation: (place) => typeof(place)==="undefined"?undefined:(place.type==="Nation"?place:wb.getParentNation(wb.getData(place.parent,"locations"))),
 	
 	getRank: function(character,factions) {
 		let rank=255;
-		faction=factions.find(o => o.faction === character.faction);
+		faction=factions.find(o => o.name === character.faction);
 		if (faction) {
 			if (wb.PRIMALS.includes(character.race)) rank=0;
 			else if(character.title && faction.hierarchy[character.title]) rank=faction.hierarchy[character.title];
 		}
 		return rank;
+	},
+	
+	getSupertype: function(item) {
+		out = undefined;
+		Object.getOwnPropertyNames(world).forEach(function(e) {
+			if (world[e].find(o=>o.name===item)) out=e;
+		});
+		return out;
 	},
 	
 	initPage(page,callBack) {
@@ -81,19 +99,31 @@ let wb = {
 		switch (page) {
 			case "event":
 				$("#event_title").text(a);
-				ev = wb.getData(a);
+				ev = wb.getData(a,"events");
 				if (typeof(ev.text)==="string")
 					$("#event_info").html("<p>" + ev.text + "</p>");
 				else
 					$("#event_info").text(ev.summary);
 				break;
 			
+			case "factions":
+				let facList = "", histFacList="";
+				world.factions.forEach(function(e) {
+					if(e.tags === undefined || !e.tags.includes("Historical"))
+						facList+=wb.generateListItem(e);
+					else
+						histFacList+=wb.generateListItem(e);
+				});
+				$("#faction_list").html(facList);
+				$("#hist_fac_list").html(histFacList);
+				break;
+			
 			case "hierarchy":
-				if (wb.getData(a).supertype==="Location") {
+				if (wb.getSupertype(a)==="locations") {
 					$("#hierarchy_title").text("Noteworthy Residents of " + a); // Alphabetical / By Faction
 					$("#hierarchy_list").html("");
-					let factions=world.filter(o => o.supertype === "Hierarchy" && o.parent === a);
-					let chars=world.filter(o => o.supertype === "Character" && o.homeland === a);
+					let factions=world.factions.filter(o => o.parent === a);
+					let chars=world.characters.filter(o => o.homeland === a);
 					chars.sort( (a,b) => wb.getRank(a,factions) - wb.getRank(b,factions) );
 					factionHtml = {};
 					chars.forEach( function(e) {
@@ -102,7 +132,7 @@ let wb = {
 								factionHtml.Historical = wb.EXP_LIST_HEADER + "Historical" + wb.EXP_LIST_MID;
 							factionHtml.Historical += wb.generateListItem(e);
 						}
-						else if (factions.find(o=> o.faction === e.faction)) {
+						else if (factions.find(o=> o.name === e.faction)) {
 							if(!factionHtml[e.faction])
 								factionHtml[e.faction] = wb.EXP_LIST_HEADER + wb.capitalize(e.faction) + wb.EXP_LIST_MID;
 							factionHtml[e.faction] += wb.generateListItem(e);
@@ -121,47 +151,45 @@ let wb = {
 					$("#hierarchy_list").append(factionHtml.other);
 					$("#hierarchy_list").append(factionHtml.Historical);
 				}
-				else if (wb.getData(wb.activeID[wb.activeID.length=1]).supertype==="Faction")
+				else if (wb.getSupertype(a)==="factions")
 					$("#hieararchy_title").text("Noteworthy Members of " + a);
 				else $("#hierarchy_title").text("Error: \"" + wb.activeID + "\" is neither a faction nor a location.");
 				break;
 			
 			case "history":
-				histList="";
-				wb.sortByDate(world.filter(o=>o.supertype==="Event")).forEach(function(e) {
-						histList+=wb.HIST_LIST_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.year + " " + e.era + wb.LIST_ITEM_MID + e.name + wb.CLICKABLE_LIST_ITEM_FOOTER;
+				let histList="";
+				wb.sortByDate(world.events).forEach(function(e) {
+						histList +=wb.HIST_LIST_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.year + " " + e.era + wb.LIST_ITEM_MID + e.name + wb.CLICKABLE_LIST_ITEM_FOOTER;
 				});
 				$("#hist_list").html(histList);
 				break;
 			
 			case "location":
 				$("#loc_title").text(a);
-				loc = wb.getData(a);
+				loc = wb.getData(a,"locations");
 				if (typeof(loc.text)==="string")
 					$("#loc_info").html("<p>" + loc.text + "</p>");
 				else
 					$("#loc_info").text(loc.summary);
-				wb.sortByDate(world.filter(o=>o.supertype==="Event" && (o.parent===a || o.parent.includes(a)))).forEach(function(e){$("#loc_info").append("<p>" + e.text + "</p>")});
+				wb.sortByDate(world.events.filter(o => (o.parent===a || o.parent.includes(a)))).forEach(function(e){$("#loc_info").append("<p>" + e.text + "</p>")});
 				break;
 			
 			case "nation":
 				$("#nation_title").text(a);
-				nation = wb.getData(a);
+				nation = wb.getData(a,"locations");
 				let nationInfo=$("#nation_info");
 				if(typeof(nation)==="undefined")
 					nationInfo.text("Sorry, but " + a + " could not be found.");
 				else {
 					let cityList = "", regList = "", poiList = "";
-					world.forEach(function(e) {
-						if (e.supertype==="Location") {
-							if (typeof(wb.getParentNation(e))!=="undefined" && wb.getParentNation(e).name===a) {
-								if (e.type==="City")
-									cityList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-								else if (e.type==="Region")
-									regList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-								else if (e.type==="PoI")
-									poiList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-							}
+					world.locations.forEach(function(e) {
+						if (typeof(wb.getParentNation(e))!=="undefined" && wb.getParentNation(e).name===a) {
+							if (e.type==="City")
+								cityList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							else if (e.type==="Region")
+								regList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							else if (e.type==="PoI")
+								poiList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 						}
 					});
 					if (cityList!=="") cityList=wb.CITY_LIST_HEADER + cityList + wb.EXP_LIST_FOOTER;
@@ -176,77 +204,45 @@ let wb = {
 			case "peopleatoz":
 				$("#people_atoz_list").html("");
 				
-				world.forEach(function(e) {
-					if (e.supertype==="Character") {
-						let chars="";
-						chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-						if (e.title) chars+= e.title + " ";
-						chars += e.name + wb.LIST_ITEM_MID;
-						chars+= e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
-						let c=undefined;
-						if (e.class) {
-							if (typeof(e.class)==="string") c=e.class;
-							else c=e.class[0];
-							chars += " " + c;
-						}
-						chars += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						$("#people_atoz_list").append(chars)
+				world.characters.forEach(function(e) {
+					let chars="";
+					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+					if (e.title) chars+= e.title + " ";
+					chars += e.name + wb.LIST_ITEM_MID;
+					chars+= e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
+					let c=undefined;
+					if (e.class) {
+						if (typeof(e.class)==="string") c=e.class;
+						else c=e.class[0];
+						chars += " " + c;
 					}
+					chars += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+					$("#people_atoz_list").append(chars);
 				});
-				break;
-				
-			case "peoplebyrace":
-				let races={}; 
-				$("#race_list").html("");
-				
-				world.forEach(function(e) {
-					if (e.supertype==="Character") {
-						if (!races[e.race])
-							races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
-						races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-						if (e.title) races[e.race] += e.title + " ";
-						races[e.race] += e.name + wb.LIST_ITEM_MID;
-						races[e.race] += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
-						let c=undefined;
-						if (e.class) {
-							if (typeof(e.class)==="string") c=e.class;
-							else c=e.class[0];
-							races[e.race] += " " + c;
-						}
-						races[e.race] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-					}
-				});
-				Object.getOwnPropertyNames(races).sort().forEach(function(e) {
-					races[e] += wb.EXP_LIST_FOOTER;
-					$("#race_list").append(races[e]);
-				});
-				
 				break;
 				
 			case "peoplebyclass":
 				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
 				$("#class_list").html("");
-				world.forEach(function(e) {
-					if (e.supertype==="Character") {
-						let c=undefined;
-						if (e.class) {
-							if (typeof(e.class)==="string") c=e.class;
-							else c=e.class[0];
-							if (!classes[c])
-								classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
-							classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-							if (e.title) classes[c] += e.title + " ";
-							classes[c] += e.name + wb.LIST_ITEM_MID;
-							classes[c] += e.subrace ? wb.capitalizeFirst(e.subrace) + " " + c : wb.capitalizeFirst(e.race) + " " + c;
-							classes[c] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						}
-						else {
-							classes.other +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-							if (e.title) classes.other += e.title + " ";
-							classes.other += e.name + wb.LIST_ITEM_MID;
-							classes.other += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
-							classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						}
+				world.characters.forEach(function(e) {
+					let c=undefined;
+					if (e.class) {
+						if (typeof(e.class)==="string") c=e.class;
+						else c=e.class[0];
+						if (!classes[c])
+							classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
+						classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+						if (e.title) classes[c] += e.title + " ";
+						classes[c] += e.name + wb.LIST_ITEM_MID;
+						classes[c] += e.subrace ? wb.capitalizeFirst(e.subrace) + " " + c : wb.capitalizeFirst(e.race) + " " + c;
+						classes[c] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+					}
+					else {
+						classes.other +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+						if (e.title) classes.other += e.title + " ";
+						classes.other += e.name + wb.LIST_ITEM_MID;
+						classes.other += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
+						classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
 				});
 					
@@ -257,21 +253,51 @@ let wb = {
 				
 				break;
 			
+			case "peoplebyrace":
+				let races={}; 
+				$("#race_list").html("");
+				
+				world.characters.forEach(function(e) {
+					if (!races[e.race])
+						races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
+					races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
+					if (e.title) races[e.race] += e.title + " ";
+					races[e.race] += e.name + wb.LIST_ITEM_MID;
+					races[e.race] += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
+					let c=undefined;
+					if (e.class) {
+						if (typeof(e.class)==="string") c=e.class;
+						else c=e.class[0];
+						races[e.race] += " " + c;
+					}
+					races[e.race] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+				});
+				Object.getOwnPropertyNames(races).sort().forEach(function(e) {
+					races[e] += wb.EXP_LIST_FOOTER;
+					$("#race_list").append(races[e]);
+				});
+				
+				break;
+				
 			case "world":
-				let natList="", azList="";
-				world.forEach(function(e){
-					if (e.supertype==="Location")
-					{
-						if(e.type==="Nation" && (typeof(e.subtype)==="undefined" || !e.subtype.includes("Historical"))){
+				let natList="", azList="", histLocList="";
+				world.locations.forEach(function(e){
+					if(e.type==="Nation"){
+						azList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						if (typeof(e.subtype)==="undefined" || !e.subtype.includes("Historical"))
 							natList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-							azList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						}
 						else
-							azList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							histLocList += wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+					}
+					else {
+						azList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						if (typeof(e.subtype)!=="undefined" && e.subtype.includes("Historical"))
+							histLocList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
 				});
 				$("#nations_list").html(natList);
 				$("#a-z_list").html(azList);
+				$("#hist_loc_list").html(histLocList);
 				break;
 				
 		}
