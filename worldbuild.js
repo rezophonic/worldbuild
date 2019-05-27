@@ -118,7 +118,7 @@ let wb = {
 						if (e==="homeland")
 							charInfoStr+=wb.NAT_LIST_ITEM_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
 						else if(e==="faction")
-							charInfoStr+=wb.FAC_LIST_ITEM_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							charInfoStr+=wb.FAC_LIST_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
 						if (Array.isArray(character[e]))
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e][0]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
 						else
@@ -136,6 +136,7 @@ let wb = {
 				else
 					$("#event_info").text(ev.summary);
 				break;
+				
 			case "faction":
 				let facHrchyList="", facMemberList="";
 				let faction=wb.getData(a,"factions");
@@ -149,6 +150,7 @@ let wb = {
 				});
 				$("#fac_hierarchy").html(facHrchyList);
 				$("#fac_members").html(facMemberList);
+				break;
 			
 			case "factions":
 				let facList = "", histFacList="";
