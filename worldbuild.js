@@ -62,7 +62,7 @@ let wb = {
 			strOut=wb.FAC_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID + item.name + wb.LIST_ITEM_MID + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 		}
 		else if (world.locations.includes(item) && item.type==="Nation") {
-			strOut=wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+			strOut=wb.NAT_LIST_ITEM_HEADER + wb.nestableString(item.name) + wb.CLICKABLE_LIST_ITEM_MID + item.name + wb.LIST_ITEM_MID + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 		}
 		return strOut;
 	},
