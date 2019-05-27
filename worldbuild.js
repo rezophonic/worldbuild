@@ -370,8 +370,7 @@ let wb = {
 }
 
 document.addEventListener("init",function(event) {
-	if (event.taget.id==="home")
-		wb.initPage(event.target.id);
+	wb.initPage(event.target.id);
 });
 
 
