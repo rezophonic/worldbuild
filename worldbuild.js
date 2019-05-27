@@ -61,6 +61,9 @@ let wb = {
 		else if (world.factions.includes(item)) {
 			strOut=wb.FAC_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID + item.name + wb.LIST_ITEM_MID + item.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 		}
+		else if (world.locations.includes(item) && item.type==="Nation") {
+			wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+		}
 		return strOut;
 	},
 
@@ -112,6 +115,10 @@ let wb = {
 				Object.getOwnPropertyNames(character).forEach(function(e) {
 					if(e!=="name" && e!=="summary" && e!=="tags")
 					{
+						if (e==="homeland")
+							charInfoStr+=wb.NAT_LIST_ITEM_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						else if(e==="faction")
+							charInfoStr+=wb.FAC_LIST_ITEM_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
 						if (Array.isArray(character[e]))
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e][0]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
 						else
@@ -320,11 +327,11 @@ let wb = {
 				let natList="", azList="", histLocList="";
 				world.locations.forEach(function(e){
 					if(e.type==="Nation"){
-						azList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+						azList+= wb.generateListItem(e);
 						if (typeof(e.subtype)==="undefined" || !e.subtype.includes("Historical"))
-							natList+= wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							natList+= wb.generateListItem(e);
 						else
-							histLocList += wb.NAT_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
+							histLocList += wb.generateListItem(e);
 					}
 					else {
 						azList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
