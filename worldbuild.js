@@ -119,7 +119,7 @@ let wb = {
 							charInfoStr+=wb.NAT_LIST_ITEM_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
 						else if(e==="faction")
 							charInfoStr+=wb.FAC_LIST_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						if (Array.isArray(character[e]))
+						else if (Array.isArray(character[e]))
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e][0]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
 						else
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
