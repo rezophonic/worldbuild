@@ -370,14 +370,15 @@ let wb = {
 }
 
 document.addEventListener("init",function(event) {
-	wb.initPage(event.target.id);
+	if (event.taget.id==="home")
+		wb.initPage(event.target.id);
 });
 
-/*
+
 document.addEventListener("prepush",function(event) {
 	wb.initPage(event.target.id);
 });
-*/
+
 
 document.addEventListener("prepop",function(event) {
 	wb.activeID.pop();
