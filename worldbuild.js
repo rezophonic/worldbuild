@@ -40,7 +40,10 @@ let wb = {
 	
 	generateListItem (item) {
 		let strOut="";
-		if (world.characters.includes(item)) {
+		if (typeof(item)==="string") {
+			strOut=wb.LIST_ITEM_HEADER + 'string' + LIST_ITEM_FOOTER;
+		}
+		else if (world.characters.includes(item)) {
 			// if (type === "clickable") {
 			strOut=wb.PEOPLE_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID;
 			if (item.title) strOut+= item.title + " ";
