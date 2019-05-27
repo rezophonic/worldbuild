@@ -5,7 +5,7 @@ let wb = {
 	EXP_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>",
 	FAC_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"faction.html\",\"",
 	HIST_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"event.html\",\"",
-	LIST_ITEM_HEADER: "<ons-list-item> <div class='center'> <div class='list-item__title title5'>",
+	LIST_ITEM_HEADER: "<ons-list-item> <div class='center'> <div class='list-item__title title4'>",
 	LIST_ITEM_MID: "</div> <div class='list-item__subtitle'>",
 	LIST_ITEM_FOOTER: "</div> </div> </ons-list-item>",
 	//LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
