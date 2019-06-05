@@ -105,13 +105,18 @@ let wb = {
 	},
 	
 	initPage(page,callBack) {
-		wb.pageStack.push(page);
-		a=wb.activeID[wb.activeID.length-1];
+		let idIndex=wb.activeID.length;
+		let pages=document.getElementsByTagName("ons-page");
+		let pageElements = pages[pages.length-1].getElementsByTagName("*");
+		for(let i=0; i<pageElements.length; i++) {
+			pageElements[i].id=pageElements[i].id+idIndex;
+		}
+		a=wb.activeID[idIndex-1];
 		switch (page) {
 			case "character":
 				let character=wb.getData(a,"characters");
 				let charInfoStr="<ons-list-item>" + character.summary + "</ons-list-item>";
-				$("#character_title").text(a);
+				$("#character_title"+idIndex).text(a);
 				Object.getOwnPropertyNames(character).forEach(function(e) {
 					if(e!=="name" && e!=="summary" && e!=="tags")
 					{
@@ -125,31 +130,31 @@ let wb = {
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
 					}
 				});
-				$("#character_info").html(charInfoStr);
+				$("#character_info"+idIndex).html(charInfoStr);
 				break;
 				
 			case "event":
-				$("#event_title").text(a);
+				$("#event_title"+idIndex).text(a);
 				ev = wb.getData(a,"events");
 				if (typeof(ev.text)==="string")
-					$("#event_info").html("<p>" + ev.text + "</p>");
+					$("#event_info"+idIndex).html("<p>" + ev.text + "</p>");
 				else
-					$("#event_info").text(ev.summary);
+					$("#event_info"+idIndex).text(ev.summary);
 				break;
 				
 			case "faction":
 				let facHrchyList="", facMemberList="";
 				let faction=wb.getData(a,"factions");
-				$("#faction_title").text(a);
-				$("#fac_info").text(faction.summary);
+				$("#faction_title"+idIndex).text(a);
+				$("#fac_info"+idIndex).text(faction.summary);
 				Object.getOwnPropertyNames(faction.hierarchy).forEach( function(e) {
 					facHrchyList+=wb.LIST_ITEM_HEADER + e + wb.LIST_ITEM_MID + faction.hierarchy[e].summary + wb.LIST_ITEM_FOOTER;
 				});
 				world.characters.filter(o => o.faction===faction.name).sort((a,b) => wb.getRank(a,faction)-wb.getRank(b,faction)).forEach( function(c) {
 					facMemberList += wb.generateListItem(c);
 				});
-				$("#fac_hierarchy").html(facHrchyList);
-				$("#fac_members").html(facMemberList);
+				$("#fac_hierarchy"+idIndex).html(facHrchyList);
+				$("#fac_members"+idIndex).html(facMemberList);
 				break;
 			
 			case "factions":
@@ -160,14 +165,14 @@ let wb = {
 					else
 						histFacList+=wb.generateListItem(e);
 				});
-				$("#faction_list").html(facList);
-				$("#hist_fac_list").html(histFacList);
+				$("#faction_list"+idIndex).html(facList);
+				$("#hist_fac_list"+idIndex).html(histFacList);
 				break;
 			
 			case "hierarchy":
 				if (wb.getSupertype(a)==="locations") {
-					$("#hierarchy_title").text("Noteworthy Residents of " + a); // Alphabetical / By Faction
-					$("#hierarchy_list").html("");
+					$("#hierarchy_title"+idIndex).text("Noteworthy Residents of " + a); // Alphabetical / By Faction
+					$("#hierarchy_list"+idIndex).html("");
 					let factions=world.factions.filter(o => o.parent === a);
 					let chars=world.characters.filter(o => o.homeland === a);
 					chars.sort( (a,b) => wb.getRank(a,factions) - wb.getRank(b,factions) );
@@ -192,14 +197,14 @@ let wb = {
 					Object.getOwnPropertyNames(factionHtml).sort().forEach(function(e) {
 						factionHtml[e] += wb.EXP_LIST_FOOTER;
 						if( e !== "other"  && e !== "Historical" )
-							$("#hierarchy_list").append(factionHtml[e]);
+							$("#hierarchy_list"+idIndex).append(factionHtml[e]);
 					});
-					$("#hierarchy_list").append(factionHtml.other);
-					$("#hierarchy_list").append(factionHtml.Historical);
+					$("#hierarchy_list"+idIndex).append(factionHtml.other);
+					$("#hierarchy_list"+idIndex).append(factionHtml.Historical);
 				}
 				else if (wb.getSupertype(a)==="factions")
-					$("#hieararchy_title").text("Noteworthy Members of " + a);
-				else $("#hierarchy_title").text("Error: \"" + wb.activeID + "\" is neither a faction nor a location.");
+					$("#hieararchy_title"+idIndex).text("Noteworthy Members of " + a);
+				else $("#hierarchy_title"+idIndex).text("Error: \"" + wb.activeID + "\" is neither a faction nor a location.");
 				break;
 			
 			case "history":
@@ -207,23 +212,23 @@ let wb = {
 				wb.sortByDate(world.events).forEach(function(e) {
 						histList +=wb.HIST_LIST_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.year + " " + e.era + wb.LIST_ITEM_MID + e.name + wb.CLICKABLE_LIST_ITEM_FOOTER;
 				});
-				$("#hist_list").html(histList);
+				$("#hist_list"+idIndex).html(histList);
 				break;
 			
 			case "location":
-				$("#loc_title").text(a);
+				$("#loc_title"+idIndex).text(a);
 				loc = wb.getData(a,"locations");
 				if (typeof(loc.text)==="string")
-					$("#loc_info").html("<p>" + loc.text + "</p>");
+					$("#loc_info"+idIndex).html("<p>" + loc.text + "</p>");
 				else
-					$("#loc_info").text(loc.summary);
-				wb.sortByDate(world.events.filter(o => (o.parent===a || o.parent.includes(a)))).forEach(function(e){$("#loc_info").append("<p>" + e.text + "</p>")});
+					$("#loc_info"+idIndex).text(loc.summary);
+				wb.sortByDate(world.events.filter(o => (o.parent===a || o.parent.includes(a)))).forEach(function(e){$("#loc_info"+idIndex).append("<p>" + e.text + "</p>")});
 				break;
 			
 			case "nation":
-				$("#nation_title").text(a);
+				$("#nation_title"+idIndex).text(a);
 				nation = wb.getData(a,"locations");
-				let nationInfo=$("#nation_info");
+				let nationInfo=$("#nation_info"+idIndex);
 				if(typeof(nation)==="undefined")
 					nationInfo.text("Sorry, but " + a + " could not be found.");
 				else {
@@ -241,14 +246,14 @@ let wb = {
 					if (cityList!=="") cityList=wb.CITY_LIST_HEADER + cityList + wb.EXP_LIST_FOOTER;
 					if (regList!=="") regList=wb.REG_LIST_HEADER + regList + wb.EXP_LIST_FOOTER;
 					if (poiList!=="") poiList=wb.POI_LIST_HEADER + poiList + wb.EXP_LIST_FOOTER;
-					$("#city_list").html(cityList);
-					$("#reg_list").html(regList);
-					$("#poi_list").html(poiList);
+					$("#city_list"+idIndex).html(cityList);
+					$("#reg_list"+idIndex).html(regList);
+					$("#poi_list"+idIndex).html(poiList);
 				}
 				break;
 				
 			case "peopleatoz":
-				$("#people_atoz_list").html("");
+				$("#people_atoz_list"+idIndex).html("");
 				
 				world.characters.forEach(function(e) {
 					let chars="";
@@ -263,13 +268,13 @@ let wb = {
 						chars += " " + c;
 					}
 					chars += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
-					$("#people_atoz_list").append(chars);
+					$("#people_atoz_list"+idIndex).append(chars);
 				});
 				break;
 				
 			case "peoplebyclass":
 				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
-				$("#class_list").html("");
+				$("#class_list"+idIndex).html("");
 				world.characters.forEach(function(e) {
 					let c=undefined;
 					if (e.class) {
@@ -294,14 +299,14 @@ let wb = {
 					
 				Object.getOwnPropertyNames(classes).sort().forEach(function(e) {
 					classes[e] += wb.EXP_LIST_FOOTER;
-					$("#class_list").append(classes[e]);
+					$("#class_list"+idIndex).append(classes[e]);
 				});
 				
 				break;
 			
 			case "peoplebyrace":
 				let races={}; 
-				$("#race_list").html("");
+				$("#race_list"+idIndex).html("");
 				
 				world.characters.forEach(function(e) {
 					if (!races[e.race])
@@ -320,7 +325,7 @@ let wb = {
 				});
 				Object.getOwnPropertyNames(races).sort().forEach(function(e) {
 					races[e] += wb.EXP_LIST_FOOTER;
-					$("#race_list").append(races[e]);
+					$("#race_list"+idIndex).append(races[e]);
 				});
 				
 				break;
@@ -341,9 +346,9 @@ let wb = {
 							histLocList+= wb.LOC_LIST_ITEM_HEADER + wb.nestableString(e.name) + wb.CLICKABLE_LIST_ITEM_MID + e.name + wb.LIST_ITEM_MID + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
 				});
-				$("#nations_list").html(natList);
-				$("#a-z_list").html(azList);
-				$("#hist_loc_list").html(histLocList);
+				$("#nations_list"+idIndex).html(natList);
+				$("#a-z_list"+idIndex).html(azList);
+				$("#hist_loc_list"+idIndex).html(histLocList);
 				break;
 				
 		}
@@ -354,6 +359,7 @@ let wb = {
 	pushPage: function(p,a,cb) {
 		if(a) wb.activeID.push(a);
 		else wb.activeID.push("");
+		wb.pageStack.push(p.substring(0,p.length-5));
 		document.getElementById("nav").pushPage(p);
 		if (typeof(cb)==="function") cb();
 	},
@@ -370,14 +376,12 @@ let wb = {
 }
 
 document.addEventListener("init",function(event) {
-	wb.initPage(event.target.id);
+		wb.initPage(event.target.id);
 });
 
-
-document.addEventListener("prepush",function(event) {
-	wb.initPage(event.target.id);
+document.addEventListener("postpush",function(event) {
+	wb.initPage(wb.pageStack[wb.pageStack.length-1]);
 });
-
 
 document.addEventListener("prepop",function(event) {
 	wb.activeID.pop();
