@@ -1799,12 +1799,56 @@ factions: [
 	{
 		"name": "Chamber of Eight",
 		"hierarchy": {
-			"King": 1,
-			"Kynesgard": 1.5,
-			"Warmaster": 2,
-			"Forgemaster": 3,
-			"Rune-Speaker": 4,
-			"Quartermaster": 5,
+			"King": {
+				"rank": 1,
+				"summary": "The ruler of Dohn Durigg",
+				"display": true,
+			},
+			"Kynesgard": {
+				"rank": 2.5,
+				"summary": "The King's official guard.  Although officially the Kynesgard answer only to the King, unlike the Warmaster and other warriors, they are sworn to not involve themselves in matters of politics, leaving them with less social influence than it may seem otherwise.",
+				"display": true,
+			},
+			"Warmaster": {
+				"rank": 2,
+				"summary": "Ever since the Dragonlight War, the Warmasters have remained the highest ranking official in Dohn Durigg besides the King himself.",
+				"display": true,
+			},
+			"Forgemaster": {
+				"rank": 3,
+				"summary": "Masters of smithing and metalworking, the forgemasters are the highest ranked and most respected among non-warriors.",
+				"display": true,
+			},
+			"Stonemaster": {
+				"rank": 4,
+				"summary": "The master stonecarvers who build the great halls of Dohn Durigg.",
+				"display": true,
+			},
+			"Deepmaster": {
+				"rank": 5,
+				"summary": "The Deepmasters are in charge of both operating dwarven mines and protecting the dwarves from whatever threats they may unearth.",
+				"display": true,
+			},
+			"Arcanamaster": {
+				"rank": 6,
+				"summary": "Although the importance of magic and technology from the Dragonlight War on has made the Arcanamasters integral to the success of the dwarves, a tradition that once frowned upon the magic of frailer races has left them officially lower ranked than more practical masters. Because the Arcanamasters seek power from sources other than politics, they have not bothered to change this.",
+				"display": true,
+			},
+			"Runekeeper": {
+				"rank": 7,
+				"summary": "Official historians and accountants (which are one in the same in Dohn Durigg) of the most important information in the kingdom.",
+				"display": true,
+			},
+			"Rune-Speaker": {
+				"rank": 2.7,
+				"summary": "Although Rune-Speakers have no official political rank, few would either question their spiritual authority or try to make demands of them.",
+				"display": true,
+			},
+			"Quartermaster": {
+				"rank": 8,
+				"summary": "Each district in Dohn Durigg has a Quartermaster who presides over logistic and business issues.",
+				"display": true,
+			},
 		},
 		"parent": "Dohn Durigg",
 		"summary": "The strictly stratified society of Dohn Durigg that grew out of the martial law during the Dragonlight War.",
@@ -1813,8 +1857,16 @@ factions: [
 	{
 		"name": "Illunidin",
 		"hierarchy": {
-			"Queen": 1,
-			"High Druid": 2,
+			"Queen": {
+				"rank": 1,
+				"summary": "The ruler of the kingdom of the moon elves who has been missing along with the Tower of the Moon ever since it vanished.",
+				"display": true,
+			},
+			"High Druid": {
+				"rank": 2,
+				"summary": "The keeper of all of Eldenwyld wilderness and spiritual leader of the moon elves.",
+				"display": true,
+			},
 		},
 		"parent": "Illunidin",
 		"tags": ["Historical"],
@@ -1823,9 +1875,21 @@ factions: [
 	{
 		"name": "The Lost Hall",
 		"hierarchy": {
-			"Lord": 1,
-			"Captain": 2,
-			"Commander": 3,
+			"Lord": {
+				"rank": 1,
+				"summary": "Leader of the Lost Hall.",
+				"display": true,
+			},
+			"Captain": {
+				"rank": 2,
+				"summary": "Highest rank of the Lost Hall beside the Lord himself.",
+				"display": true,
+			},
+			"Commander": {
+				"rank": 3,
+				"summary": "A high ranking member of the Lost Hall.",
+				"display": true,
+			},
 		},
 		"parent": "Eldenwyld",
 		"summary": "After the disappearance of Illunidin and the withdraw of Mihnarian occupation in Eldenwyld, Lord Adelarde Elderhart founded the Lost Hall to take in those left behind and bring order back to Eldenwyld."
@@ -1833,17 +1897,44 @@ factions: [
 	{
 		"name": "Mihnarian Officiancy",
 		"hierarchy": {
-			"Senator": 1,
-			"Champion": 2,
-			"Captain": 2.1,
-			"Master": 3,
+			"Senator": {
+				"rank": 1,
+				"summary": "One of the five rulers of Mihnaria.",
+				"display": true,
+			},
+			"Champion": {
+				"rank": 2,
+				"summary": "Although the Champion of a Senator has no more political power than any noble, their direct participation in Mihnaria's political decision-by-trial and their social fame grants them much unofficial power.",
+				"display": true,
+			},
+			"Captain": {
+				"rank": 2.1,
+				"summary": "The leader of a division of the Mihnarian guard and — officially, at least — the highest rank outside of the Senators and members of the Silverscale Council.",
+				"display": true,
+			},
+			"Master": {
+				"rank": 3,
+				"summary": "The master of an Academy of Champions.  Like the Champions themselves, they wield more power than they officially hold.",
+				"display": true,
+			},
 		},
 		"parent": "Mihnaria",
 		"summary": "The Mehnarian Officiancy includes all the nobles and governing agents of Mehnaria, including their designated champions.",
 	},
 	{
 		"name": "Nindilwil Metacology",
-		"hierarchy": {},
+		"hierarchy": {
+			"Professor": {
+				"rank": 1,
+				"summary": "The professors of Nindilwil are the greatest minds in all of Lott, and occasionally they even find practical uses for their expertise.",
+				"display": true,
+			},
+			"Apprentice": {
+				"rank": 2,
+				"summary": "An apprentice in Nindilwil is in the direct tutelage of one of the professors, and therefore often knows more about their area of expertise than anyone but the professor they train under.",
+				"display": false,
+			},
+		},
 		"parent": "Dohn Durigg",
 		"summary": "The collective mechano-magical ecology of the gnomish city of Nindilwil.",
 		"text": "The gnomes of Nindilwil have an interesting take on property and cooperation: Anyone can build what they want, integrating it with neighboring inventions.  As such, the entire city is a hodgepodge of a machine, each part feeding off the next, constantly modified and rebuilt to counteract a neighbor's efforts, repair one's own, or, whenever possible, achieve a mutual benefit for both.  Almost all gnomes believe their own work to be the most important, and therefore they believe that the greater good is best advanced by their own pursuits.  Egotistical though they are, they are neither greedy nor malicious, so whenever they can help a neighbor, they make an effort, so long as it doesn't detract too much from their own work. Their city is a magical, mechanical ecosystem, with growth and decay, successes and failures.  Nindilwil, especially, is surrounded by scrappers - gnomes and other races who gather parts and manipulate residual magic in efforts to build other things.",
@@ -1851,10 +1942,26 @@ factions: [
 	{
 		"name": "Order of the Acorn",
 		"hierarchy": {
-			"High Druid": 0.1,
-			"Grand Hippogriff": 1,
-			"Knight Captain": 2,
-			"Knight Commander": 3,
+			"High Druid": {
+				"rank": 0.1,
+				"summary": "Acts as the voice of nature to guide the Order of the Acorn in their efforts to protect peace and life.",
+				"display": true,
+			},
+			"Grand Hippogriff": {
+				"rank": 1,
+				"summary": "The strategic and logistic leader of the Order of the Acorn.",
+				"display": true,
+			},
+			"Knight Captain": {
+				"rank": 2,
+				"summary": "Highest rank of Knights of the Acorn besides the High Druid and Grand Hippogriff themselves.",
+				"display": true,
+			},
+			"Knight Commander": {
+				"rank": 3,
+				"summary": "A high rank of the Knights of the Acorn.",
+				"display": true,
+			},
 		},
 		"parent": "Eldenwyld",
 		"summary": "After the Order of the White Oak disappeared with the rest of Illunidin, the Order of the Acorn was founded to take over its role of protecting life and peace within Eldenwyld's forests.",
@@ -1862,9 +1969,21 @@ factions: [
 	{
 		"name": "Panumbral Tribes",
 		"hierarchy": {
-			"High Chief": 1,
-			"Chief": 2,
-			"Druid": 3,
+			"High Chief": {
+				"rank": 1,
+				"summary": "The ruler of the tribes who live among and around the Illunidin ruins, elected by and of the Panumbral chiefs.",
+				"display": true,
+			},
+			"Chief": {
+				"rank": 2,
+				"summary": "The ruler of a city or territory of the Panumbral Tribes.",
+				"display": true,
+			},
+			"Druid": {
+				"rank": 3,
+				"summary": "The spiritual leader of a Panumbral Tribe.",
+				"display": false,
+			},
 		},
 		"parent": "Eldenwyld",
 		"summary": "Denizens of Eldenwyld who learned to coexist with the phases of Illunidin.",
@@ -1878,14 +1997,46 @@ factions: [
 	{
 		"name": "Twilight Consortium",
 		"hierarchy": {
-			"Eternal": 0,
-			"Sentinel": 1,
-			"Adjudicator": 2,
-			"Crusader": 3,
-			"Arbiter": 4,
-			"Marshal": 5,
-			"Guardian": 6,
-			"Hunter": 7,
+			"Eternal": {
+				"rank": 0,
+				"summary": "One of the celestials or devils who came together to form the Twilight Consortium.",
+				"display": false,
+			},
+			"Sentinel": {
+				"rank": 1,
+				"summary": "Keepers of the peace as dictated by the Consortium and the highest ranked mortals in Redwend.",
+				"display": true,
+			},
+			"Adjudicator": {
+				"rank": 2,
+				"summary": "Responsible for finding, judging, and punishing those who violate the Consortium's laws.",
+				"display": true,
+			},
+			"Crusader": {
+				"rank": 3,
+				"summary": "Powerful agents used for specialized tasks by the Consortium.",
+				"display": true,
+			},
+			"Arbiter": {
+				"rank": 4,
+				"summary": "High ranking enforcers of Consortium law, and often the highest ranking official permanently stationed in a particular city or territory.",
+				"display": true,
+			},
+			"Marshal": {
+				"rank": 5,
+				"summary": "A high ranking enforcer not restricted by geographic jurisdiction limits.",
+				"display": true,
+			},
+			"Guardian": {
+				"rank": 6,
+				"summary": "An official enforcer of Consortium law.",
+				"display": true,
+			},
+			"Hunter": {
+				"rank": 7,
+				"summary": "A sanctioned but unofficial hunter of undead, demons, and other enemies of the Consortium.",
+				"display": false,
+			},
 		},
 		"parent": "Redwend",
 		"summary": "The celestials and devils who control the Tower of Ages and those who serve under them.",
