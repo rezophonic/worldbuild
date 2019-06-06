@@ -46,7 +46,7 @@ let wb = {
 		else if (world.characters.includes(item)) {
 			// if (type === "clickable") {
 			strOut=wb.PEOPLE_LIST_HEADER + item.name + wb.CLICKABLE_LIST_ITEM_MID;
-			if (item.title) strOut+= item.title + " ";
+			if (item.title && wb.getData(item.faction,"factions").hierarchy[item.title].display) strOut+= item.title + " ";
 			strOut += item.name + wb.LIST_ITEM_MID;
 			strOut+= item.subrace ? wb.capitalizeFirst(item.subrace) : wb.capitalizeFirst(item.race);
 			let c=undefined;
@@ -116,17 +116,19 @@ let wb = {
 			case "character":
 				let character=wb.getData(a,"characters");
 				let charInfoStr="<ons-list-item>" + character.summary + "</ons-list-item>";
-				$("#character_title"+idIndex).text(a);
+				if (character.title && wb.getData(character.faction,"factions").hierarchy[character.title].display)
+					$("#character_title"+idIndex).text(character.title+" "+a);
+				else $("#character_title"+idIndex).text(a);
 				Object.getOwnPropertyNames(character).forEach(function(e) {
 					if(e!=="name" && e!=="summary" && e!=="tags")
 					{
 						if (e==="homeland")
 							charInfoStr+=wb.NAT_LIST_ITEM_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
-						else if(e==="faction")
+						else if (e==="faction")
 							charInfoStr+=wb.FAC_LIST_HEADER + character[e] + wb.CLICKABLE_LIST_ITEM_MID + character[e] + wb.LIST_ITEM_MID + e.toUpperCase() + wb.CLICKABLE_LIST_ITEM_FOOTER;
 						else if (Array.isArray(character[e]))
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e][0]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
-						else
+						else if(e!=="title" || !wb.getData(character.faction,"factions").hierarchy[character.title].display)
 							charInfoStr+=wb.LIST_ITEM_HEADER + wb.capitalize(character[e]) + wb.LIST_ITEM_MID + e.toUpperCase() + wb.LIST_ITEM_FOOTER;
 					}
 				});
@@ -258,7 +260,8 @@ let wb = {
 				world.characters.forEach(function(e) {
 					let chars="";
 					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-					if (e.title) chars+= e.title + " ";
+					console.log(e.name + ", " + e.title + ", " + e.faction);
+					if (e.title && wb.getData(e.faction,"factions").hierarchy[e.title].display) chars+= e.title + " ";
 					chars += e.name + wb.LIST_ITEM_MID;
 					chars+= e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
 					let c=undefined;
@@ -283,14 +286,14 @@ let wb = {
 						if (!classes[c])
 							classes[c] = wb.EXP_LIST_HEADER + wb.capitalize(c) + wb.EXP_LIST_MID;
 						classes[c] +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-						if (e.title) classes[c] += e.title + " ";
+						if (e.title && wb.getData(e.faction,"factions").hierarchy[e.title].display) classes[c] += e.title + " ";
 						classes[c] += e.name + wb.LIST_ITEM_MID;
 						classes[c] += e.subrace ? wb.capitalizeFirst(e.subrace) + " " + c : wb.capitalizeFirst(e.race) + " " + c;
 						classes[c] += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
 					}
 					else {
 						classes.other +=wb.PEOPLE_LIST_HEADER  + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-						if (e.title) classes.other += e.title + " ";
+						if (e.title && wb.getData(e.faction,"factions").hierarchy[e.title].display) classes.other += e.title + " ";
 						classes.other += e.name + wb.LIST_ITEM_MID;
 						classes.other += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
 						classes.other += ", " + e.summary + wb.CLICKABLE_LIST_ITEM_FOOTER;
@@ -312,7 +315,7 @@ let wb = {
 					if (!races[e.race])
 						races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
 					races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
-					if (e.title) races[e.race] += e.title + " ";
+					if (e.title && wb.getData(e.faction,"factions").hierarchy[e.title].display) races[e.race] += e.title + " ";
 					races[e.race] += e.name + wb.LIST_ITEM_MID;
 					races[e.race] += e.subrace ? wb.capitalizeFirst(e.subrace) : wb.capitalizeFirst(e.race);
 					let c=undefined;

@@ -1902,14 +1902,19 @@ factions: [
 				"summary": "One of the five rulers of Mihnaria.",
 				"display": true,
 			},
-			"Champion": {
+			"Archmage": {
 				"rank": 2,
+				"summary": "The most powerful mage in Mihnaria if not all of Lott.",
+				"display": true,
+			},
+			"Champion": {
+				"rank": 3,
 				"summary": "Although the Champion of a Senator has no more political power than any noble, their direct participation in Mihnaria's political decision-by-trial and their social fame grants them much unofficial power.",
 				"display": true,
 			},
 			"Captain": {
-				"rank": 2.1,
-				"summary": "The leader of a division of the Mihnarian guard and — officially, at least — the highest rank outside of the Senators and members of the Silverscale Council.",
+				"rank": 3.1,
+				"summary": "The leader of a division of the Mihnarian guard and — officially, at least — the highest rank outside of the Senators, the Archmage, and members of the Silverscale Council.",
 				"display": true,
 			},
 			"Master": {
@@ -1990,7 +1995,13 @@ factions: [
 	},
 	{
 		"name": "Scrappers",
-		"hierarchy": {},
+		"hierarchy": {
+			"General": {
+				"rank": 2,
+				"summary": "",
+				"display": true,
+			},
+		},
 		"parent": "Dohn Durigg",
 		"summary": "An unofficial collective of residents of Dohn Durigg who make their lives salvaging from members of the Chamber of Eight and the Nindilwil Metacology.",
 	},
