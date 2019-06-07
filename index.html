@@ -26,7 +26,18 @@
 				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
 			</div>
 		</ons-toolbar>
-		<ons-list id="character_info"> </ons-list>
+		<!-- <ons-list id="character_info"> </ons-list> -->
+		<ons-list id="character_info">
+			<ons-list-item no-divider>
+				<div class="center">
+					<div id="char_name" class="list-item__title title4"> </div>
+					<div id="char_subtitle" class="list-item__subtitle"> </div>
+				</div>
+			</ons-list-item>
+			<ons-list-item>
+				<div id="char_text" class="center"> </div>
+			</ons-list-item>
+		</ons-list>
 	</ons-page>
 </ons-template>
 
