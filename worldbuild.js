@@ -1,21 +1,21 @@
 let wb = {
-	CITY_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Cities</div> <div class='expandable-content'>",
+	CITY_LIST_HEADER: "<ons-list-item expandable> <div class='center title5'>Cities</div> <div class='expandable-content'>",
 	EXP_LIST_FOOTER: "</div> </ons-list-item>",
 	EXP_LIST_MID: "</div> <div class='expandable-content'>",
-	EXP_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>",
+	EXP_LIST_HEADER: "<ons-list-item expandable> <div class='center title5'>",
 	FAC_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"faction.html\",\"",
 	HIST_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"event.html\",\"",
-	LIST_ITEM_HEADER: "<ons-list-item> <div class='center'> <div class='list-item__title title4'>",
+	LIST_ITEM_HEADER: "<ons-list-item> <div class='center'> <div class='list-item__title title5'>",
 	LIST_ITEM_MID: "</div> <div class='list-item__subtitle'>",
 	LIST_ITEM_FOOTER: "</div> </div> </ons-list-item>",
 	//LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
 	LOC_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"location.html\",\"",
 	NAT_LIST_ITEM_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"nation.html\",\"",
-	CLICKABLE_LIST_ITEM_MID: "\")'> <div class='center'> <div class='list-item__title title4'>",
+	CLICKABLE_LIST_ITEM_MID: "\")'> <div class='center'> <div class='list-item__title title5'>",
 	CLICKABLE_LIST_ITEM_FOOTER: "</div> </div> <div class='right'> <ons-icon icon='chevron-right'> </div> </ons-list-item>",
 	PEOPLE_LIST_HEADER: "<ons-list-item tappable onclick='wb.pushPage(\"character.html\",\"",
-	POI_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Other Places of Interest</div> <div class='expandable-content'>",
-	REG_LIST_HEADER: "<ons-list-item expandable> <div class='center title4'>Regions</div> <div class='expandable-content'>",
+	POI_LIST_HEADER: "<ons-list-item expandable> <div class='center title5'>Other Places of Interest</div> <div class='expandable-content'>",
+	REG_LIST_HEADER: "<ons-list-item expandable> <div class='center title5'>Regions</div> <div class='expandable-content'>",
 	
 	UNCAPITALIZED_WORDS: ["a","an","and","aboard","about","above","across","after","against","along","amid","among","amongst","around","at","atop","before","behind","below","beneath","beside","besides","between","before","beyond","but","by","circa","despite","down","during","except","for","from","in","inside","into","less","like","near","of","off","on","onto","or","out","over","since","than","the","through","throughout","till","to","toward","towards","under","underneath","until","unto","up","upon","vs.","via","with","within","without"],
 	
@@ -145,18 +145,26 @@ let wb = {
 				break;
 				
 			case "faction":
-				let facHrchyList="", facMemberList="";
+				let facHrchyList="", facMemberList="", facHistMemList="";
 				let faction=wb.getData(a,"factions");
 				$("#faction_title"+idIndex).text(a);
 				$("#fac_info"+idIndex).text(faction.summary);
 				Object.getOwnPropertyNames(faction.hierarchy).forEach( function(e) {
 					facHrchyList+=wb.LIST_ITEM_HEADER + e + wb.LIST_ITEM_MID + faction.hierarchy[e].summary + wb.LIST_ITEM_FOOTER;
 				});
-				world.characters.filter(o => o.faction===faction.name).sort((a,b) => wb.getRank(a,faction)-wb.getRank(b,faction)).forEach( function(c) {
-					facMemberList += wb.generateListItem(c);
-				});
+/*				world.characters.filter(o => o.faction===faction.name).sort((a,b) => wb.getRank(a,faction)-wb.getRank(b,faction)).forEach( function(c) {
+					console.log(c.name+ ": " +c.tags);
+					if (c.tags && c.tags.includes("Historical"))
+						facHistMemList += wb.generateListItem(c);
+					else
+						facMemberList += wb.generateListItem(c);
+				}); */
 				$("#fac_hierarchy"+idIndex).html(facHrchyList);
-				$("#fac_members"+idIndex).html(facMemberList);
+				/* $("#fac_members"+idIndex).html(facMemberList);
+				if (facHistMemList)
+					$("#fac_hist_mem"+idIndex).html(facHistMemList);
+				else
+					$("#fac_hist_mem_exp"+idIndex).remove(); */
 				break;
 			
 			case "factions":
@@ -173,7 +181,7 @@ let wb = {
 			
 			case "hierarchy":
 				if (wb.getSupertype(a)==="locations") {
-					$("#hierarchy_title"+idIndex).text("Noteworthy Residents of " + a); // Alphabetical / By Faction
+					$("#hierarchy_title"+idIndex).text("Factions of " + a); // Alphabetical / By Faction
 					$("#hierarchy_list"+idIndex).html("");
 					let factions=world.factions.filter(o => o.parent === a);
 					let chars=world.characters.filter(o => o.homeland === a);
@@ -257,7 +265,16 @@ let wb = {
 			case "peopleatoz":
 				$("#people_atoz_list"+idIndex).html("");
 				
-				world.characters.forEach(function(e) {
+				if (wb.getSupertype(a)==="locations" && wb.getData(a,"locations").type==="Nation") {
+					$("#people_atoz_title"+idIndex).text("Residents of " + a);
+					characters=wb.sortByLastName(world.characters.filter(o => o.homeland===a));
+				}
+				else if (wb.getSupertype(a)==="factions") {
+					$("#people_atoz_title"+idIndex).text("Members of " + a);
+					characters=wb.sortByLastName(world.characters.filter(o => o.faction===a));
+				}
+				else characters=wb.sortByLastName(world.characters);
+				characters.forEach(function(e) {
 					let chars="";
 					chars+=wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
 					console.log(e.name + ", " + e.title + ", " + e.faction);
@@ -277,8 +294,14 @@ let wb = {
 				
 			case "peoplebyclass":
 				let classes={other: wb.EXP_LIST_HEADER + "Other" + wb.EXP_LIST_MID};
+				$("#classes_title"+idIndex).text("Classes of " + a);
 				$("#class_list"+idIndex).html("");
-				world.characters.forEach(function(e) {
+				if (wb.getSupertype(a)==="locations" && wb.getData(a,"locations").type==="Nation")
+					characters=world.characters.filter(o => o.homeland===a);
+				else if (wb.getSupertype(a)==="factions")
+					characters=world.characters.filter(o => o.faction===a);
+				else characters=world.characters;
+				characters.forEach(function(e) {
 					let c=undefined;
 					if (e.class) {
 						if (typeof(e.class)==="string") c=e.class;
@@ -309,9 +332,15 @@ let wb = {
 			
 			case "peoplebyrace":
 				let races={}; 
+				$("#races_title"+idIndex).text("Races of " + a);
 				$("#race_list"+idIndex).html("");
-				
-				world.characters.forEach(function(e) {
+				characters=undefined;
+				if (wb.getSupertype(a)==="locations" && wb.getData(a,"locations").type==="Nation")
+					characters=world.characters.filter(o => o.homeland===a);
+				else if (wb.getSupertype(a)==="factions")
+					characters=world.characters.filter(o => o.faction===a);
+				else characters=world.characters;
+				characters.forEach(function(e) {
 					if (!races[e.race])
 						races[e.race]= wb.EXP_LIST_HEADER + wb.capitalize(e.race) + wb.EXP_LIST_MID;
 					races[e.race] += wb.PEOPLE_LIST_HEADER + e.name + wb.CLICKABLE_LIST_ITEM_MID;
@@ -367,12 +396,30 @@ let wb = {
 		if (typeof(cb)==="function") cb();
 	},
 	
+	resetToHome: function() {
+		activeID=[];
+		pageStack=[];
+		document.getElementById("nav").resetToPage("index.html",{pop: true})
+	},
+	
 	setActiveID: function(s) {wb.activeID.push(s);},
 	
 	sortByDate: d=>d.sort(function(a,b) {
 		let eras={"EP": 1, "EM": 2, "ET": 3, "AF": 4};
 	return eras[b.era]-eras[a.era]===0?eras[b.era]-eras[a.era]:b.year-a.year===0?b.year-a.year:b.month-a.month;
 	}),
+	
+	sortByLastName: names => names.sort(function(a,b) {
+		if (typeof(a)==="String")
+			aLast=a.split(" ")[a.split(" ").length-1];
+		else
+			aLast=a.name.split(" ")[a.name.split(" ").length-1];
+		if (typeof(b)==="String")
+			bLast=b.split(" ")[b.split(" ").length-1];
+		else
+			bLast=b.name.split(" ")[b.name.split(" ").length-1];
+					return aLast > bLast ? 1 : bLast > aLast ? -1 : 0;
+				}),
 	
 	//unnestString: s=>s.replace("&#39;","'"),
 	
@@ -382,12 +429,14 @@ document.addEventListener("init",function(event) {
 		wb.initPage(event.target.id);
 });
 
+/*
 document.addEventListener("postpush",function(event) {
 	wb.initPage(wb.pageStack[wb.pageStack.length-1]);
 });
+*/
 
 document.addEventListener("prepop",function(event) {
 	wb.activeID.pop();
 	wb.pageStack.pop();
-	wb.initPage(wb.pageStack[wb.pageStack.length-1]);
+	// wb.initPage(wb.pageStack[wb.pageStack.length-1]);
 });

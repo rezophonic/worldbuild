@@ -498,7 +498,7 @@ characters: [
 		"subclass": "war mage",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "champion of Liris Inhirl, friend of Akaparthuus Emberscale",
+		"summary": "Champion of Liris Inhirl, friend of Akaparthuus Emberscale",
 	},
 	{
 		"name": "Andalil Penthril",
@@ -549,7 +549,7 @@ characters: [
 		"subclass": "sky guard",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "founding member of the Sky Guard",
+		"summary": "Founding member of the Sky Guard",
 	},
 	{
 		"name": "Arthur Dawnhollow",
@@ -603,7 +603,7 @@ characters: [
 		"subclass": "spellbreaker",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of Skybreaker Acadaemy",
+		"summary": "Master of Skybreaker Acadaemy",
 	},
 	{
 		"name": "Berellia Thallathian",
@@ -662,7 +662,7 @@ characters: [
 		"class": "fighter",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "scrapper and knight for Ikitiki",
+		"summary": "Scrapper and knight for Ikitiki",
 	},
 	{
 		"name": "Caerris Ozwin",
@@ -727,7 +727,7 @@ characters: [
 		"subclass": "abjurer",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of Sunderfell Academy",
+		"summary": "Master of Sunderfell Academy",
 	},
 	{
 		"name": "Dain Ymbeard",
@@ -750,7 +750,7 @@ characters: [
 		"subclass": "eldritch knight",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of Highcandle Hall, champion of Berellia Thallathian",
+		"summary": "Master of Highcandle Hall, champion of Berellia Thallathian",
 	},
 	{
 		"name": "Eira Hyde",
@@ -827,7 +827,7 @@ characters: [
 		"subclass": "eldritch knight",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of the Echoing Hall (academy), veteran of the Dragonlight Wars",
+		"summary": "Master of the Echoing Hall (academy), veteran of the Dragonlight Wars",
 	},
 	{
 		"name": "Felghthuus Gurligaath",
@@ -873,7 +873,7 @@ characters: [
 		"sex": "female",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "also \“Gear-Grinder\”",
+		"summary": "Also \“Gear-Grinder\”",
 	},
 	{
 		"name": "Gildalyn Zavarian",
@@ -886,25 +886,35 @@ characters: [
 		"summary": "High Chief of Tandriel",
 	},
 	{
+		"name": "Gondric Longshadow",
+		"title": "Professor",
+		"race": "gnome",
+		"subrace": "stone gnome",
+		"class": "artificer",
+		"faction": "Nindilwil Metacology",
+		"homeland": "Dohn Durigg",
+		"summary": "Professor of Teletransmutation and Applied Spatial Paradoxes",
+	},
+	{
 		"name": "Gore-Forged",
 		"race": "warforged",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "once a Dohn Durigg soldier, mostly destroyed, and rebuilt by goblins with minimal memories of its past",
+		"summary": "Once a Dohn Durigg soldier, mostly destroyed, and rebuilt by goblins with minimal memories of its past",
 	},
 	{
 		"name": "Gramlic Eiki",
 		"title": "Arcanamaster",
-		"race": "Dwarf",
+		"race": "dwarf",
 		"faction": "Chamber of Eight",
 		"homeland": "Dohn Durigg",
 		"tags": ["Historical"],
-		"summary": "inventor of magic that allowed him to build extradimensional dwarven halls and gates between dwarven cities",
+		"summary": "Inventor of magic that allowed him to build extradimensional dwarven halls and gates between dwarven cities",
 	},
 	{
 		"name": "Grivlix",
 		"race": "demon",
-		"summary": "demon of corruption, distortion, disease, disfigurement, mutation, passion, madness of the moment",
+		"summary": "Demon of corruption, distortion, disease, disfigurement, mutation, passion, madness of the moment",
 	},
 	{
 		"name": "Gruun the Braggart",
@@ -935,7 +945,7 @@ characters: [
 		"sex": "female",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "scrapper machinist",
+		"summary": "Scrapper machinist",
 	},
 	{
 		"name": "Half-Jaw",
@@ -946,7 +956,7 @@ characters: [
 		"subclass": "battle master",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "general-turned-drill-sergeant for Ikitiki",
+		"summary": "General-turned-drill-sergeant for Ikitiki",
 	},
 	{
 		"name": "Hector Duskdale",
@@ -984,7 +994,7 @@ characters: [
 		"class": "sorcerer",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "scrapper leader who forges through transmutation, also known as \“Ink-Drink\”",
+		"summary": "Scrapper leader who forges through transmutation, also known as \“Ink-Drink\”",
 	},
 	{
 		"name": "Illedan Elveryl",
@@ -1000,14 +1010,14 @@ characters: [
 	{
 		"name": "Ingari",
 		"race": "demon",
-		"summary": "demon of nothingness, emptiness, void",
+		"summary": "Demon of nothingness, emptiness, void",
 	},
 	{
 		"name": "Inzikiu",
 		"race": "celestial",
 		"faction": "Twilight Consortium",
 		"homeland": "Redwend",
-		"summary": "celestial of fate, order, law, time, inevitability; member of the Twilight Consortium",
+		"summary": "Celestial of fate, order, law, time, inevitability; member of the Twilight Consortium",
 	},
 	{
 		"name": "Iona Redcloak",
@@ -1018,7 +1028,7 @@ characters: [
 		"subclass": "war mage",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "champion of Felghthuus Gurligaath, sister of Rufus Redcloak",
+		"summary": "Champion of Felghthuus Gurligaath, sister of Rufus Redcloak",
 	},
 	{
 		"name": "Ivy Ravenfrost",
@@ -1034,12 +1044,12 @@ characters: [
 	{
 		"name": "Ixilac",
 		"race": "demon",
-		"summary": "demon of the swarm",
+		"summary": "Demon of the swarm",
 	},
 	{
 		"name": "Ixith",
 		"race": "devil", 
-		"summary": "devil of lust, desire; makes deals with Twilight Consortium but will not officially join",
+		"summary": "Devil of lust, desire; makes deals with Twilight Consortium but will not officially join",
 	},
 	{
 		"name": "Kayne Dawnsworn",
@@ -1060,12 +1070,12 @@ characters: [
 		"subclass": "arcane trickster",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of Atwood Academy and champion of Rufus Redcloak",
+		"summary": "Master of Atwood Academy and champion of Rufus Redcloak",
 	},
 	{
 		"name": "Koh",
 		"race": "celestial",
-		"summary": "celestial of purity, cleansing; opposes the Twilight Consortium",
+		"summary": "Celestial of purity, cleansing; opposes the Twilight Consortium",
 	},
 	{
 		"name": "Kraw Seolfer",
@@ -1091,7 +1101,7 @@ characters: [
 		"race": "devil",
 		"faction": "Twilight Consortium",
 		"homeland": "Redwend",
-		"summary": "devil of greed, underhanded deals, trickery, deceit, secrets; member of the Twilight Consortium",
+		"summary": "Devil of greed, underhanded deals, trickery, deceit, secrets; member of the Twilight Consortium",
 	},
 	{
 		"name": "Lily Horn-Bearer",
@@ -1127,7 +1137,7 @@ characters: [
 	{
 		"name": "Lorikelai",
 		"race": "celestial",
-		"summary": "celestial of wisdom, learning, struggle, ritual, history",
+		"summary": "Celestial of wisdom, learning, struggle, ritual, history",
 	},
 	{
 		"name": "Luciana the Falcon",
@@ -1160,6 +1170,16 @@ characters: [
 		"summary": "Mihnarian elite soldier, frozen in Dragonlight Tower",
 	},
 	{
+		"name": "Marvin Nozwik",
+		"title": "Professor",
+		"race": "gnome",
+		"subrace": "stone gnome",
+		"class": "artificer",
+		"faction": "Nindilwil Metacology",
+		"homeland": "Dohn Durigg",
+		"summary": "Professor of Arcanodynamics",
+	},
+	{
 		"name": "Mist Oaken-Crook",
 		"race": "dwarf",
 		"subrace": "mountain dwarf",
@@ -1184,7 +1204,7 @@ characters: [
 	{
 		"name": "Molakriu",
 		"race": "demon",
-		"summary": "demon of decay, rot, dust, time",
+		"summary": "Demon of decay, rot, dust, time",
 	},
 	{
 		"name": "Moralyn Kalrukileth",
@@ -1196,7 +1216,7 @@ characters: [
 		"subclass": "arcane archer",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of Kalrukileth Hall",
+		"summary": "Master of Kalrukileth Hall",
 	},
 	{
 		"name": "Niht-Rafen Reod",
@@ -1210,7 +1230,17 @@ characters: [
 	{
 		"name": "Numirithki",
 		"race": "celestial",
-		"summary": "celestial of harvest, bounty, prosperity, nature",
+		"summary": "Celestial of harvest, bounty, prosperity, nature",
+	},
+	{
+		"name": "Obb Logolon",
+		"title": "Professor",
+		"race": "gnome",
+		"subrace": "stone gnome",
+		"class": "artificer",
+		"faction": "Nindilwil Metacology",
+		"homeland": "Dohn Durigg",
+		"summary": "Professor of Divination Matrices and Temporal Algebra",
 	},
 	{
 		"name": "Ogrin Black-Tooth",
@@ -1248,7 +1278,7 @@ characters: [
 		"race": "celestial",
 		"faction": "Twilight Consortium",
 		"homeland": "Redwend",
-		"summary": "celestial of revelation, truth, light; member of the Twilight Consortium",
+		"summary": "Celestial of revelation, truth, light; member of the Twilight Consortium",
 	},
 	{
 		"name": "Otto Chilldeep",
@@ -1297,7 +1327,7 @@ characters: [
 	{
 		"name": "Pazunu",
 		"race": "devil",
-		"summary": "devil of imprisonment, solitude",
+		"summary": "Devil of imprisonment, solitude",
 	},
 	{
 		"name": "Peter Troll-Hammer",
@@ -1341,7 +1371,7 @@ characters: [
 		"subclass": "arcane archer",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "champion of Sybil Irondel",
+		"summary": "Champion of Sybil Irondel",
 	},
 	{
 		"name": "Rothet Cindermoth",
@@ -1370,7 +1400,7 @@ characters: [
 		"sex": "female",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "also \"Rust-tusk,\" scrapper demolitionist",
+		"summary": "Also \"Rust-tusk,\" scrapper demolitionist",
 	},
 	{
 		"name": "Rumbagunk",
@@ -1380,7 +1410,7 @@ characters: [
 		"subclass": "cavalier",
 		"faction": "Scrappers",
 		"homeland": "Dohn Duirgg",
-		"summary": "also \"Rumble-Clunk,\" scrapper knight who uses vehicles in place of mounts; some skill in fixing machines, but greater proficiency at breaking them",
+		"summary": "Also \"Rumble-Clunk,\" scrapper knight who uses vehicles in place of mounts; some skill in fixing machines, but greater proficiency at breaking them",
 	},
 	{
 		"name": "Rustag Blatusk",
@@ -1439,7 +1469,7 @@ characters: [
 	{
 		"name": "Sifa",
 		"race": "celestial",
-		"summary": "celestial of serenity, peace, rest",
+		"summary": "Celestial of serenity, peace, rest",
 	},
 	{
 		"name": "Silas Fireshine",
@@ -1460,7 +1490,8 @@ characters: [
 		"class": "wizard",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "led the elves in the Dragonlight Wars, now frozen in time at the top of the Dragonight Tower",
+		"tags": ["Historical","Dragonlight War"],
+		"summary": "Led the elves in the Dragonlight Wars, now frozen in time at the top of the Dragonight Tower",
 	},
 	{
 		"name": "Skunk",
@@ -1469,7 +1500,7 @@ characters: [
 		"class": "fighter",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "also \"Skull-Knock,\" knight for Ikitiki’s tribe",
+		"summary": "Also \"Skull-Knock,\" knight for Ikitiki’s tribe",
 	},
 	{
 		"name": "Skybreaker Black",
@@ -1478,7 +1509,7 @@ characters: [
 		"subclass": "spellbreaker",
 		"faction": "Chamber of Eight",
 		"homeland": "Dohn Durigg",
-		"summary": "formerly Huund Blaec, was instrumental along with Vilgulf Skybreaker in the Dragonlight Wars, earning the same title thereafter; afterward hunted war criminals, then, when there were no more of those, rogue mages and other magical threats",
+		"summary": "Formerly Huund Blaec, was instrumental along with Vilgulf Skybreaker in the Dragonlight Wars, earning the same title thereafter; afterward hunted war criminals, then, when there were no more of those, rogue mages and other magical threats",
 	},
 	{
 		"name": "Sofia Simon",
@@ -1497,7 +1528,7 @@ characters: [
 		"sex": "male",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "sometimes \"Soozomoos\" because he cannot remember if he’s supposed to read right-to-left or left-to-right, also \"Soot-Muzzle\"",
+		"summary": "Sometimes \"Soozomoos\" because he cannot remember if he’s supposed to read right-to-left or left-to-right, also \"Soot-Muzzle\"",
 	},
 	{
 		"name": "Stanley Sparkspider",
@@ -1516,7 +1547,7 @@ characters: [
 		"sex": "female",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "also \"Stickersnap\"",
+		"summary": "Also \"Stickersnap\"",
 	},
 	{
 		"name": "Sybil Irondel",
@@ -1534,7 +1565,7 @@ characters: [
 		"sex": "male",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "also \"Singe Skin\"",
+		"summary": "Also \"Singe Skin\"",
 	},
 	{
 		"name": "Syldris Calenthis",
@@ -1574,7 +1605,7 @@ characters: [
 		"sex": "male",
 		"faction": "Scrappers",
 		"homeland": "Dohn Durigg",
-		"summary": "also \"Tar-Foot\"",
+		"summary": "Also \"Tar-Foot\"",
 	},
 	{
 		"name": "Thariel Ozwin",
@@ -1586,14 +1617,14 @@ characters: [
 		"subclass": "storm stalker",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "academy champion",
+		"summary": "Academy champion",
 	},
 	{
 		"name": "Therinzekri",
 		"race": "celestial",
 		"faction": "Twilight Consortium",
 		"homeland": "Redwend",
-		"summary": "celestial of justice, culling, survival, necessity; member of the Twilight Consortium",
+		"summary": "Celestial of justice, culling, survival, necessity; member of the Twilight Consortium",
 	},
 	{
 		"name": "Thruun Frostbeard",
@@ -1616,7 +1647,7 @@ characters: [
 		"class": "fighter",
 		"faction": "Chamber of Eight",
 		"homeland": "Dohn Durigg",
-		"summary": "king of Dohn Durigg",
+		"summary": "King of Dohn Durigg",
 	},
 	{
 		"name": "Thunder Gold",
@@ -1626,7 +1657,7 @@ characters: [
 		"subclass": "eldritch knight",
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
-		"summary": "master of Thunder Gold Academy, veteran of the Second Dragonlight War",
+		"summary": "Master of Thunder Gold Academy, veteran of the Second Dragonlight War",
 	},
 	{
 		"name": "Thuunder Seolfer",
@@ -1675,7 +1706,7 @@ characters: [
 		"faction": "Chamber of Eight",
 		"homeland": "Dohn Durigg",
 		"tags": ["Historical"],
-		"summary": "elite soldier, frozen in Dragonlight",
+		"summary": "Elite soldier, frozen in Dragonlight",
 	},
 	{
 		"name": "Uthgar Felfoot",
@@ -1704,17 +1735,17 @@ characters: [
 		"race": "devil",
 		"faction": "Twilight Consortium",
 		"homeland": "Redwend",
-		"summary": "devil of domination, rule, conquest, enslavement; member of the Twilight Consortium",
+		"summary": "Devil of domination, rule, conquest, enslavement; member of the Twilight Consortium",
 	},
 	{
 		"name": "Uugrix",
 		"race": "demon",
-		"summary": "demon of madness, forgetfulness, ignorance, delusions",
+		"summary": "Demon of madness, forgetfulness, ignorance, delusions",
 	},
 	{
 		"name": "Uzazaru",
 		"race": "demon",
-		"summary": "demon of the never-was, missed misfortunes, doom",
+		"summary": "Demon of the never-was, missed misfortunes, doom",
 	},
 	{
 		"name": "Vance Duskdale",
@@ -1733,7 +1764,7 @@ characters: [
 		"faction": "Chamber of Eight",
 		"homeland": "Dohn Durigg",
 		"tags": ["Historical"],
-		"summary": "ancestor of Bergi Skybreaker, Dohn Durigg elite soldier who led the siege against Dragonlight Tower",
+		"summary": "Ancestor of Bergi Skybreaker, Dohn Durigg elite soldier who led the siege against Dragonlight Tower",
 	},
 	{
 		"name": "Violet Lichfel",
@@ -1761,7 +1792,7 @@ characters: [
 		"race": "devil",
 		"faction": "Twilight Consortium",
 		"homeland": "Redwend",
-		"summary": "devil of war, wrath, vengeance, destruction of enemies; member of the Twilight Consortium",
+		"summary": "Devil of war, wrath, vengeance, destruction of enemies; member of the Twilight Consortium",
 	},
 	{
 		"name": "Warren Dusk-Spark",
@@ -1781,6 +1812,16 @@ characters: [
 		"faction": "Mihnarian Officiancy",
 		"homeland": "Mihnaria",
 		"summary": "Dohn Durigg elite, formerly Waefergang Seolfer, unaffected by the Dragonlight time lock, but remained there to protect the time lock and prevent the escape of Archmage Barynthiel",
+	},
+	{
+		"name": "Winvers Engrest",
+		"title": "Professor",
+		"race": "gnome",
+		"subrace": "stone gnome",
+		"class": "artificer",
+		"faction": "Nindilwil Metacology",
+		"homeland": "Dohn Durigg",
+		"summary": "Professor of Theoretical Metacology",
 	},
 	{
 		"name": "Wynne Winterwind",

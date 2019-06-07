@@ -22,6 +22,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="character_title"> </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="character_info"> </ons-list>
 	</ons-page>
@@ -34,6 +37,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="event_title"> </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list>
 			<ons-list-item>
@@ -50,22 +56,58 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="faction_title"> </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list>
 			<ons-list-item>
 				<div class="center" id="fac_info"> </div>
 			</ons-list-item>
 			<ons-list-item expandable>
-				<span class="title4"> Hierarchy </span>
+				<span class="title5"> Hierarchy </span>
 				<div class="expandable-content">
 					<ons-list id="fac_hierarchy"> </ons-list>
 				</div>
 			</ons-list-item>
-			<ons-list-item expandable>
-				<span class="title4"> Members </span>
+			<ons-list>
+				<ons-list-item expandable>
+					<div class="center title5">
+						Members
+					</div>
+					<div class="expandable-content">
+						<ons-list-item tappable onclick="wb.pushPage('hierarchy.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								By Rank
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+						<ons-list-item tappable onclick="wb.pushPage('peoplebyrace.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								By Race
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+						<ons-list-item tappable onclick="wb.pushPage('peoplebyclass.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								By Class
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+						<ons-list-item tappable onclick="wb.pushPage('peopleatoz.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								Alphabetical
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+					</div>
+				</ons-list-item>
+			</ons-list>
+			<ons-list-item expandable id="fac_hist_mem_exp">
+				<span class="title5"> Historical Members </span>
 				<div class="expandable-content">
-					<ons-list id="fac_members"> </ons-list>
-				</div>				
+					<ons-list id="fac_hist_mem"> </ons-list>
+				</div>
 			</ons-list-item>
 		</ons-list>
 	</ons-page>
@@ -78,11 +120,14 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center">Factions</div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="faction_list"> </ons-list>
 		<ons-list>
 			<ons-list-item expandable>
-				<span class="title4"> Historical </span>
+				<span class="title5"> Historical </span>
 				<div class="expandable-content">
 					<ons-list id="hist_fac_list"> </ons-list>
 				</div>
@@ -98,6 +143,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="hierarchy_title">Noteworthy Characters</div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="hierarchy_list">
 		</ons-list>
@@ -111,6 +159,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center">History</div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="hist_list">
 		</ons-list>
@@ -159,6 +210,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="loc_title"> </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list>
 			<ons-list-item>
@@ -175,6 +229,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="nation_title"> </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<div id="nation_info">
 			<ons-list>
@@ -186,11 +243,36 @@
 			<ons-list id="reg_list"></ons-list>
 			<ons-list id="poi_list"></ons-list>
 			<ons-list>
-				<ons-list-item tappable onclick="wb.pushPage('hierarchy.html',wb.activeID[wb.activeID.length-1])">
-					<div class="center title4">
+				<ons-list-item expandable>
+					<div class="center title5">
 						Noteworthy Residents
 					</div>
-					<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+					<div class="expandable-content">
+						<ons-list-item tappable onclick="wb.pushPage('hierarchy.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								By Faction
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+						<ons-list-item tappable onclick="wb.pushPage('peoplebyrace.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								By Race
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+						<ons-list-item tappable onclick="wb.pushPage('peoplebyclass.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								By Class
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+						<ons-list-item tappable onclick="wb.pushPage('peopleatoz.html',wb.activeID[wb.activeID.length-1])">
+							<div class="center title5">
+								Alphabetical
+							</div>
+							<div class="right"> <ons-icon icon="chevron-right"> </ons-icon> </div>
+						</ons-list-item>
+					</div>
 				</ons-list-item>
 			</ons-list>
 		</div>
@@ -204,6 +286,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="people_title"> People </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list>
 			<ons-list-item tappable onclick="wb.pushPage('peoplebyrace.html','')">
@@ -241,6 +326,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="races_title"> Races </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="race_list">
 		</ons-list>
@@ -254,6 +342,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="classes_title"> Classes </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="class_list">
 		</ons-list>
@@ -267,6 +358,9 @@
 				<ons-back-button>Back</ons-back-button>
 			</div>
 			<div class="center" id="people_atoz_title"> People </div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
+			</div>
 		</ons-toolbar>
 		<ons-list id="people_atoz_list">
 		</ons-list>
@@ -281,6 +375,9 @@
 			</div>
 			<div class="center">
 				The World
+			</div>
+			<div class="right">
+				<ons-button icon="home" modifier="quiet" onclick="wb.resetToHome()">Home</ons-button>
 			</div>
 		</ons-toolbar>
 		<ons-list>
