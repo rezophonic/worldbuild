@@ -1,3 +1,16 @@
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
+
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+    apiKey: "[Firebase API Key]",
+    authDomain: "worldbuild-3b59a.firebaseapp.com",
+    projectId: "worldbuild-3b59a",
+});
+
+var db = firebase.firestore();
+
 let wb = {
 	CITY_LIST_HEADER: "<ons-list-item expandable> <div class='center title5'>Cities</div> <div class='expandable-content'>",
 	EXP_LIST_FOOTER: "</div> </ons-list-item>",
